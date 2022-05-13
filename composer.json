@@ -1,0 +1,21 @@
+{
+  "name": "ecomhouse/deliverypoints",
+  "type": "project",
+  "description": "EcomHouse DeliveryPoints Api",
+  "version": "1.0.0",
+  "license": "GNU LGPLv3",
+  "require": {
+    "php": ">=8.1",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "7.4.2",
+    "monolog/monolog": "^3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "EcomHouse\\DeliveryPoints\\": "src/"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  php:
+    container_name: delivery-points-php-cli
+    build:
+      context: .
+    ports:
+      - '9000:9000'
+    volumes:
+      - .:/var/www/html
