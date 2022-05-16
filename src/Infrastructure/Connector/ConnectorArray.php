@@ -2,7 +2,10 @@
 
 namespace EcomHouse\DeliveryPoints\Infrastructure\Connector;
 
-class ConnectorArray implements ConnectorInterface
+final class ConnectorArray implements ConnectorInterface
 {
+    public function doRequest()
+    {
 
+    }
 }
