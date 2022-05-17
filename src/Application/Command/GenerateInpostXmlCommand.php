@@ -34,11 +34,11 @@ class GenerateInpostXmlCommand implements GenerateXmlCommandInterface
                 'delivery-point-address' => $address->street,
                 'delivery-point-city' => $address->city,
                 'delivery-point-postcode' => $address->post_code,
-                'delivery-point-comment' => $address->location_description ?? '',
+                'delivery-point-comment' => $point->location_description ?? 'none',
             ];
         }
 
-        $this->xmlBuilder->build($filename, $data);
+        $this->xmlBuilder->build($filename, $data, []);
     }
 
     private function getCount(string $token)

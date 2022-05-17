@@ -6,14 +6,16 @@ class CsvBuilder implements DataBuilderInterface
 {
     protected string $delimiter = ',';
 
-    public function build(string $filename, $data)
+    public function build(string $filename, array $data, array $headers)
     {
-        // TODO: Implement build() method.
-    }
+        $file = fopen(self::PATH_FILENAME . $filename . '.csv', 'w');
+        fputcsv($file, $headers, $this->delimiter);
 
-    protected function setHeader(int $offset): array
-    {
-        return [];
+        foreach ($data as $row) {
+            fputcsv($file, $row);
+        }
+
+        fclose($file);
     }
 
 }

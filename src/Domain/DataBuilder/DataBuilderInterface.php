@@ -6,5 +6,5 @@ interface DataBuilderInterface
 {
     const PATH_FILENAME = 'var/data/';
 
-    public function build(string $filename, $data);
+    public function build(string $filename, array $data, array $headers);
 }
