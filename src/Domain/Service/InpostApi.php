@@ -17,13 +17,12 @@ class InpostApi implements SpeditorInterace
 
     public function getPoints(string $token, ?string $postCode = null)
     {
-        $url = 'v1/points';
+        $url = self::API_URL.'v1/points';
         if ($postCode) {
             $url .= '?relative_post_code=' . $postCode;
         }
 
-
-        return $this->get([self::API_URL. $url], $this->getParams($token));
+        return $this->connector->doRequest($url, $this->getParams($token));
     }
 
     /**

@@ -4,8 +4,9 @@ namespace EcomHouse\DeliveryPoints\Infrastructure\Connector;
 
 final class ConnectorArray implements ConnectorInterface
 {
-    public function doRequest()
+    public function doRequest(string $uriEndpoint, array $params = [], string $requestMethod = 'GET')
     {
-
+        // TODO: Implement doRequest() method.
     }
+
 }
