@@ -34,7 +34,7 @@ class GenerateInpostXmlCommand implements GenerateXmlCommandInterface
                 'delivery-point-address' => $address->street,
                 'delivery-point-city' => $address->city,
                 'delivery-point-postcode' => $address->post_code,
-                'delivery-point-comment' => $address->location_description ?? 'none',
+                'delivery-point-comment' => $address->location_description ?? '',
             ];
         }
 
