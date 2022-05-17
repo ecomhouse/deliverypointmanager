@@ -15,6 +15,9 @@ class XmlBuilder implements DataBuilderInterface
             $root->appendChild($result);
             if (is_array($value)) {
                 foreach ($value as $k => $item) {
+                    if (!$item) {
+                        $item = '';
+                    }
                     $result->appendChild($dom->createElement($k, $item));
                 }
             } else {
@@ -25,8 +28,4 @@ class XmlBuilder implements DataBuilderInterface
         $dom->save(self::PATH_FILENAME . $filename . '.xml');
     }
 
-    protected function setHeader(int $offset): array
-    {
-        return [];
-    }
 }

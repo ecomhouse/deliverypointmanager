@@ -4,5 +4,5 @@ namespace EcomHouse\DeliveryPoints\Application\Command;
 
 interface GenerateXmlCommandInterface
 {
-    public function execute();
+    public function execute(string $token, string $filename);
 }

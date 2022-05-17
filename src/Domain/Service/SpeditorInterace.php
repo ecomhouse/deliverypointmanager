@@ -6,8 +6,9 @@ interface SpeditorInterace
 {
     /**
      * @param string $token
-     * @param string|null $postCode
+     * @param int|null $page
+     * @param int|null $perPage
      * @return mixed
      */
-    public function getPoints(string $token, ?string $postCode = null);
+    public function getPoints(string $token, ?int $page = 1, ?int $perPage = 25);
 }

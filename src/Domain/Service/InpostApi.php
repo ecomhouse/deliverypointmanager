@@ -15,21 +15,23 @@ class InpostApi implements SpeditorInterace
         $this->connector = $connector;
     }
 
-    public function getPoints(string $token, ?string $postCode = null)
+    public function getPoints(string $token, ?int $page = 1, ?int $perPage = 25)
     {
         $url = self::API_URL.'v1/points';
-        if ($postCode) {
-            $url .= '?relative_post_code=' . $postCode;
+        if ($page) {
+            $url .= '?page=' . $page;
         }
-
+        if ($perPage) {
+            $url .= '&per_page=' . $perPage;
+        }
         return $this->connector->doRequest($url, $this->getParams($token));
     }
 
     /**
-     * @param $token
+     * @param string $token
      * @return array
      */
-    private function getParams($token): array
+    private function getParams(string $token): array
     {
         return [
             'headers' => [ 'Authorization' => 'Bearer ' . $token]

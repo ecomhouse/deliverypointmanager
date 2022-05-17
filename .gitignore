@@ -3,3 +3,5 @@ composer.lock
 vendor/
 .idea
 config/.env
+var/data/*.xml
+var/data/*.csv
