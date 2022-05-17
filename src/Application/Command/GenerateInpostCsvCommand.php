@@ -34,7 +34,7 @@ class GenerateInpostCsvCommand implements GenerateCsvCommandInterface
                 $address->street,
                 $address->city,
                 $address->post_code,
-                $point->location_description ?? 'dupa',
+                $point->location_description
             ];
         }
         $headers = [
@@ -57,4 +57,5 @@ class GenerateInpostCsvCommand implements GenerateCsvCommandInterface
         $data = json_decode($response->getBody());
         return $data->count;
     }
+
 }

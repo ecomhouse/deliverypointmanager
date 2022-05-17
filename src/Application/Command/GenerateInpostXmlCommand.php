@@ -26,6 +26,11 @@ class GenerateInpostXmlCommand implements GenerateXmlCommandInterface
         $data = [];
         foreach ($points->items as $point) {
             $address = $point->address_details;
+            $comment = $point->location_description;
+            if (isset($comment)) {
+                $comment = str_replace('&', '&amp;', $point->location_description);
+            }
+
             $data[] = [
                 'delivery-point-x' => $point->location->longitude,
                 'delivery-point-y' => $point->location->latitude,
@@ -34,7 +39,7 @@ class GenerateInpostXmlCommand implements GenerateXmlCommandInterface
                 'delivery-point-address' => $address->street,
                 'delivery-point-city' => $address->city,
                 'delivery-point-postcode' => $address->post_code,
-                'delivery-point-comment' => $point->location_description ?? 'none',
+                'delivery-point-comment' => $comment,
             ];
         }
 
