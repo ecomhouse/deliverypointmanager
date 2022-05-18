@@ -18,5 +18,5 @@ EcomHouse DeliveryPoint API - Simple PHP Application without framework.
 To run the application you must run a command: php run.php
 
 # Tests
-
+You need to create an phpunit.xml file in the root project. Example in the phpunit.xml.dist file
 run command: ./vendor/bin/phpunit tests
