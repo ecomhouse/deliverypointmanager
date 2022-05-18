@@ -6,7 +6,7 @@ use Dotenv\Dotenv;
 use EcomHouse\DeliveryPoints\Domain\DataBuilder\XmlBuilder;
 use PHPUnit\Framework\TestCase;
 
-class XmlBuilderTest extends TestCase
+final class XmlBuilderTest extends TestCase
 {
     protected function setUp(): void
     {
