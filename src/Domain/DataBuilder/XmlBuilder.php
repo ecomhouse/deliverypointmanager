@@ -4,7 +4,7 @@ namespace EcomHouse\DeliveryPoints\Domain\DataBuilder;
 
 class XmlBuilder implements DataBuilderInterface
 {
-    public function build(string $filename, array $data, array $headers)
+    public function build(string $filename, array $data, array $headers): void
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = true;

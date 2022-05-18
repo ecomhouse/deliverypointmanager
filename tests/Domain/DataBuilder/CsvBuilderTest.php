@@ -3,6 +3,7 @@
 namespace Domain\DataBuilder;
 
 use Dotenv\Dotenv;
+use EcomHouse\DeliveryPoints\Domain\DataBuilder\CsvBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class CsvBuilderTest extends TestCase
@@ -15,8 +16,24 @@ final class CsvBuilderTest extends TestCase
 
     public function testBuild()
     {
-        $filename = "/var/www/html/var/data/" . $_ENV['INPOST_DELIVERY_POINTS_FILENAME']. '.csv';
+        $headers = [
+            'delivery-point-x',
+            'delivery-point-y',
+            'delivery-point-code'
+        ];
 
-        $this->assertTrue(file_exists($filename));
+        $data = [
+            ['Column1', 'Column2', 'Column3'],
+            ['Column1', 'Column2', 'Column3'],
+            ['Column1', 'Column2', 'Column3']
+        ];
+
+        $filename = "/var/www/html/var/data/" . $_ENV['INPOST_DELIVERY_POINTS_FILENAME'];
+        $csvBuilder = new CsvBuilder;
+        $csvBuilder->build($_ENV['INPOST_DELIVERY_POINTS_FILENAME'], $data, $headers);
+
+        $this->assertFileExists($filename.'.csv');
+
+        unlink($filename.'.csv');
     }
 }
