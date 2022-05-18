@@ -2,11 +2,10 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\Factory;
 
-class DeliveryPointFactoryFactory implements FactoryInterface
+class DeliveryPointFactory implements FactoryInterface
 {
     public static function build()
     {
         // TODO: Implement build() method.
     }
-
 }
