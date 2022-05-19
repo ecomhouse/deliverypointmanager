@@ -16,7 +16,7 @@ class InpostApiTest extends TestCase
     {
         $dotenv = Dotenv::createImmutable('/var/www/html/config/');
         $dotenv->load();
-        $this->inpostApi = new InpostApi(new ConnectorApi(new GuzzleClient));
+        $this->inpostApi = new InpostApi(new ConnectorApi(new GuzzleClient), ['sandbox' => true]);
     }
 
     public function testGetPoints()

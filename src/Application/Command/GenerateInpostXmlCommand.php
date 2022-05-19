@@ -15,7 +15,7 @@ class GenerateInpostXmlCommand implements GenerateXmlCommandInterface
 
     public function __construct()
     {
-        $this->inpostApi = new InpostApi(new ConnectorApi(new GuzzleClient));
+        $this->inpostApi = new InpostApi(new ConnectorApi(new GuzzleClient), ['sandbox' => true]);
         $this->xmlBuilder = new XmlBuilder;
     }
 

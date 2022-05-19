@@ -6,18 +6,22 @@ use EcomHouse\DeliveryPoints\Infrastructure\Connector\ConnectorInterface;
 
 class InpostApi implements SpeditorInterace
 {
-    private const API_URL = 'https://sandbox-api-gateway-pl.easypack24.net/';
+    const URI_PRODUCTION = 'https://api.inpost.pl/';
+    const URI_SANDBOX = 'https://sandbox-api-gateway-pl.easypack24.net/';
 
     private ConnectorInterface $connector;
 
-    public function __construct(ConnectorInterface $connector)
+    protected array $config;
+
+    public function __construct(ConnectorInterface $connector, array $config = [])
     {
         $this->connector = $connector;
+        $this->config = $config;
     }
 
     public function getPoints(string $token, ?int $page = 1, ?int $perPage = 25)
     {
-        $url = self::API_URL.'v1/points';
+        $url = $this->baseUri() . 'v1/points';
         if ($page) {
             $url .= '?page=' . $page;
         }
@@ -34,8 +38,16 @@ class InpostApi implements SpeditorInterace
     private function getParams(string $token): array
     {
         return [
-            'headers' => [ 'Authorization' => 'Bearer ' . $token]
+            'headers' => ['Authorization' => 'Bearer ' . $token]
         ];
+    }
+
+    private function baseUri(): string
+    {
+        if ($this->config['sandbox'] ?? false) {
+            return self::URI_SANDBOX;
+        }
+        return self::URI_PRODUCTION;
     }
 
 }
