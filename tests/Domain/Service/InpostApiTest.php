@@ -27,8 +27,8 @@ class InpostApiTest extends TestCase
 
     public function testGetCountPoints()
     {
-        $response = $this->inpostApi->getCountPoints();
-        $this->assertIsInt($response);
+        $result = $this->inpostApi->getCountPoints();
+        $this->assertGreaterThan(0, $result);
     }
 
 }
