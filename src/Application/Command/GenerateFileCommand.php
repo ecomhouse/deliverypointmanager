@@ -20,7 +20,7 @@ class GenerateFileCommand implements GenerateFileCommandInterface
     public function execute(array $data, string $filename)
     {
         $data = DeliveryPointFactory::build($data);
-        $this->xmlBuilder->build($filename, $data['data'], []);
-        $this->csvBuilder->build($filename, $data['data'], $data['headers']);
+        $this->xmlBuilder->build($filename, $data, []);
+        $this->csvBuilder->build($filename, $data, DeliveryPointFactory::getHeaders());
     }
 }
