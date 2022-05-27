@@ -21,7 +21,7 @@ class InpostApiTest extends TestCase
 
     public function testGetPoints()
     {
-        $response = $this->inpostApi->getPoints(1, 10);
+        $response = $this->inpostApi->getPoints(['page' => 1, 'per_page' => 10]);
         $this->assertNotEmpty($response);
     }
 

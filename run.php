@@ -15,12 +15,16 @@ echo "Start process\n";
 $generateFileCommand = new GenerateFileCommand;
 
 $inpostApi = new InpostApi(new ConnectorApi(new GuzzleClient), ['sandbox' => $_ENV['SANDBOX'], 'token' => $_ENV['INPOST_API_TOKEN']]);
-$points = $inpostApi->getPoints(1, $inpostApi->getCountPoints(1, 1));
+$points = $inpostApi->getPoints(['page' => 1, 'per_page' => $inpostApi->getCountPoints()]);
 
 $generateFileCommand->execute($points, $_ENV['INPOST_DELIVERY_POINTS_FILENAME']);
 
 $dhlApi = new DhlApi(['sandbox' => $_ENV['SANDBOX'], 'username' => $_ENV['DHL_API_USER'], 'password' => $_ENV['DHL_API_PASSWORD']]);
-$points = $dhlApi->getPoints();
-
+$points = $dhlApi->getPoints([
+    'country' => 'PL',
+    'postcode' => '00110',
+    'city' => 'Warszawa',
+    'radius' => 500,
+]);
 
 echo "End process\n";

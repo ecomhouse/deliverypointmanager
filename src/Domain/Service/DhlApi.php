@@ -19,17 +19,12 @@ class DhlApi implements SpeditorInterace
         $this->client = new SoapClient($this->baseUri());
     }
 
-    public function getPoints(?int $page = 1, ?int $perPage = 25)
+    public function getPoints(array $params = [])
     {
-        $params = $this->getParams();
-        $params['structure'] = [
-            'country' => 'PL',
-            'postcode' => '00110',
-            'city' => 'Warszawa',
-            'radius' => 500,
-        ];
+        $parameters = $this->getParams();
+        $parameters['structure'] = $params;
 
-        return $this->client->__soapCall("getNearestServicepoints", ['parameters' => $params]);
+        return $this->client->__soapCall("getNearestServicepoints", ['parameters' => $parameters]);
     }
 
     private function getParams(): array

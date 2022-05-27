@@ -2,7 +2,7 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\Factory;
 
-class DeliveryPointFactory implements FactoryInterface
+class DeliveryPointFactory implements DeliveryPointFactoryInterface
 {
     public static function build($data): array
     {

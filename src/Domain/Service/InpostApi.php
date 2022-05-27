@@ -20,15 +20,11 @@ class InpostApi implements SpeditorInterace
         $this->config = $config;
     }
 
-    public function getPoints(?int $page = 1, ?int $perPage = 25)
+    public function getPoints(array $params = [])
     {
         $url = $this->baseUri() . 'v1/points';
-        if ($page) {
-            $url .= '?page=' . $page;
-        }
-        if ($perPage) {
-            $url .= '&per_page=' . $perPage;
-        }
+        $url .= '?page=' . $params['page'] ?? 1;
+        $url .= '&per_page=' . $params['per_page'] ?? 25;
 
         $response = $this->connector->doRequest($url, $this->getParams());
         $points = json_decode($response->getBody());

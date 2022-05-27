@@ -5,9 +5,8 @@ namespace EcomHouse\DeliveryPoints\Domain\Service;
 interface SpeditorInterace
 {
     /**
-     * @param int|null $page
-     * @param int|null $perPage
+     * @param array $params
      * @return mixed
      */
-    public function getPoints(?int $page = 1, ?int $perPage = 25);
+    public function getPoints(array $params = []);
 }
