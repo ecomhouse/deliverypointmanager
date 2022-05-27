@@ -23,8 +23,9 @@ class DhlApi implements SpeditorInterace
     {
         $parameters = $this->getParams();
         $parameters['structure'] = $params;
+        $response = $this->client->__soapCall("getNearestServicepoints", ['parameters' => $parameters]);
 
-        return $this->client->__soapCall("getNearestServicepoints", ['parameters' => $parameters]);
+        return $response->getNearestServicepointsResult;
     }
 
     private function getParams(): array

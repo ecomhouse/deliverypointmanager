@@ -19,7 +19,13 @@ class DhlApiTest extends TestCase
 
     public function testGetPoints()
     {
-        $response = $this->dhlApi->getPoints();
-        $this->assertNotEmpty($response);
+        $points = $this->dhlApi->getPoints([
+            'country' => 'PL',
+            'postcode' => '00110',
+            'city' => 'Warszawa',
+            'radius' => 500,
+        ]);
+
+        $this->assertNotEmpty($points);
     }
 }
