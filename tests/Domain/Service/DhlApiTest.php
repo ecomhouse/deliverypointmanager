@@ -38,7 +38,7 @@ class DhlApiTest extends TestCase
             'radius' => 500,
         ]);
 
-        $this->assertIsArray($points->points->item);
+        $this->assertIsArray($points);
     }
 
 }
