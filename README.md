@@ -16,11 +16,16 @@ EcomHouse DeliveryPoint API - Simple PHP Application without framework.
 # Scripts
 
 To run the application you must run a command: php run.php with parameters
+
 Example:
 
 php run.php xml,csv - file extension parameters must be decimals without spaces
 
 php run.php xml - generate only xml files
+
+Other:
+
+./stop - stop docker containers
 
 # Tests
 You need to create an phpunit.xml file in the root project. Example in the phpunit.xml.dist file

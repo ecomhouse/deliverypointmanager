@@ -5,6 +5,7 @@ namespace EcomHouse\DeliveryPoints\Application\Command;
 use EcomHouse\DeliveryPoints\Domain\DataBuilder\CsvBuilder;
 use EcomHouse\DeliveryPoints\Domain\DataBuilder\XmlBuilder;
 use EcomHouse\DeliveryPoints\Domain\Factory\DeliveryPointFactory;
+use EcomHouse\DeliveryPoints\Domain\Helper\FileExtension;
 
 class GenerateFileCommand implements GenerateFileCommandInterface
 {
@@ -22,12 +23,11 @@ class GenerateFileCommand implements GenerateFileCommandInterface
     public function execute($data, string $filename)
     {
         foreach ($this->config as $param) {
-            // @todo: parametry case stworzyć jako const
             switch ($param) {
-                case 'xml':
+                case FileExtension::XML:
                     $this->xmlBuilder->build($filename, $data, []);
                     break;
-                case 'csv':
+                case FileExtension::CSV:
                     $this->csvBuilder->build($filename, $data, DeliveryPointFactory::getHeaders());
                     break;
             }
