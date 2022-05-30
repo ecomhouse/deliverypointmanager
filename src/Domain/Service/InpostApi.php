@@ -2,7 +2,6 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\Service;
 
-use EcomHouse\DeliveryPoints\Domain\Model\DeliveryPoint;
 use EcomHouse\DeliveryPoints\Infrastructure\Connector\ConnectorInterface;
 
 class InpostApi implements SpeditorInterace

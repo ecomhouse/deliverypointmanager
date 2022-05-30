@@ -2,6 +2,8 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\Factory;
 
+use EcomHouse\DeliveryPoints\Domain\Model\Speditor;
+
 class DeliveryPointFactory implements FactoryInterface
 {
     const COLUMN_DELIVERY_POINT_X = 'delivery-point-x';
@@ -31,10 +33,10 @@ class DeliveryPointFactory implements FactoryInterface
     {
         $result = [];
         switch ($speditor) {
-            case 'inpost':
+            case Speditor::INPOST:
                 static::getInpostData($data, $result);
                 break;
-            case 'dhl':
+            case Speditor::DHL:
                 static::getDhlData($data, $result);
                 break;
             case 'postoffice':
