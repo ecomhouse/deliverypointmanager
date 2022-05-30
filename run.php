@@ -13,7 +13,8 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/config');
 $dotenv->load();
 
 echo "Start process\n";
-$generateFileCommand = new GenerateFileCommand;
+$config = isset($argv[1]) ? explode(",", $argv[1]) : [];
+$generateFileCommand = new GenerateFileCommand($config);
 
 $inpostApi = new InpostApi(new ConnectorApi(new GuzzleClient), ['sandbox' => $_ENV['SANDBOX'], 'token' => $_ENV['INPOST_API_TOKEN']]);
 $points = $inpostApi->getPoints(['page' => 1, 'per_page' => $inpostApi->getCountPoints()]);
