@@ -2,8 +2,6 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\Factory;
 
-use EcomHouse\DeliveryPoints\Domain\Model\Speditor;
-
 class DeliveryPointFactory implements FactoryInterface
 {
     const COLUMN_DELIVERY_POINT_X = 'delivery-point-x';
@@ -29,25 +27,9 @@ class DeliveryPointFactory implements FactoryInterface
         ];
     }
 
-    public static function build($data, string $speditor): array
+    public static function buildInpostData($data): array
     {
         $result = [];
-        switch ($speditor) {
-            case Speditor::INPOST:
-                static::getInpostData($data, $result);
-                break;
-            case Speditor::DHL:
-                static::getDhlData($data, $result);
-                break;
-            case 'postoffice':
-                break;
-        }
-
-        return $result;
-    }
-
-    private static function getInpostData($data, &$result)
-    {
         foreach ($data as $point) {
             $address = $point->address_details;
             $result[] = [
@@ -61,10 +43,12 @@ class DeliveryPointFactory implements FactoryInterface
                 'delivery-point-comment' => (string)$point->location_description,
             ];
         }
+        return $result;
     }
 
-    private static function getDhlData($data, &$result)
+    public static function buildDhlData($data): array
     {
+        $result = [];
         foreach ($data as $point) {
             $address = $point->address;
             $result[] = [
@@ -78,6 +62,7 @@ class DeliveryPointFactory implements FactoryInterface
                 'delivery-point-comment' => $address->name,
             ];
         }
+        return $result;
     }
 
 }

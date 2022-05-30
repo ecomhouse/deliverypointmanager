@@ -19,10 +19,8 @@ class GenerateFileCommand implements GenerateFileCommandInterface
         $this->xmlBuilder = new XmlBuilder;
     }
 
-    public function execute($data, string $filename, $speditor)
+    public function execute($data, string $filename)
     {
-        $data = DeliveryPointFactory::build($data, $speditor);
-
         foreach ($this->config as $param) {
             // @todo: parametry case stworzyć jako const
             switch ($param) {

@@ -6,7 +6,7 @@ interface SpeditorInterace
 {
     /**
      * @param array $params
-     * @return mixed
+     * @return array
      */
-    public function getPoints(array $params = []);
+    public function getPoints(array $params = []): array;
 }
