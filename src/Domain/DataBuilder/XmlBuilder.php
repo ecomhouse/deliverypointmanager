@@ -15,7 +15,7 @@ class XmlBuilder implements DataBuilderInterface
             $root->appendChild($result);
             if (is_array($value)) {
                 foreach ($value as $k => $item) {
-                    $result->appendChild($dom->createElement($k, htmlspecialchars($item, ENT_QUOTES) ?? ''));
+                    $result->appendChild($dom->createElement($k, htmlspecialchars($item ?? '', ENT_QUOTES)));
                 }
             } else {
                 $result->appendChild($dom->createElement($key, $value));

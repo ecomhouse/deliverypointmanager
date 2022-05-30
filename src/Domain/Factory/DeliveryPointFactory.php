@@ -27,25 +27,55 @@ class DeliveryPointFactory implements FactoryInterface
         ];
     }
 
-    public static function build($data): array
+    public static function build($data, string $speditor): array
     {
         $result = [];
-        foreach ($data as $point) {
-            $result[] = [
-                'delivery-point-x' => $point->getLongitude(),
-                'delivery-point-y' => $point->getLatitude(),
-                'delivery-point-code' => $point->getCode(),
-                'delivery-point-type' => $point->getType(),
-                'delivery-point-address' => $point->getAddress(),
-                'delivery-point-city' => $point->getCity(),
-                'delivery-point-postcode' => $point->getPostCode(),
-                'delivery-point-comment' => $point->getComment(),
-            ];
+        switch ($speditor) {
+            case 'inpost':
+                static::getInpostData($data, $result);
+                break;
+            case 'dhl':
+                static::getDhlData($data, $result);
+                break;
+            case 'postoffice':
+                break;
         }
 
         return $result;
     }
 
-    // @todo:prywatne metody z konkretnymi danymi
+    private static function getInpostData($data, &$result)
+    {
+        foreach ($data as $point) {
+            $address = $point->address_details;
+            $result[] = [
+                'delivery-point-x' => (float)$point->location->longitude,
+                'delivery-point-y' => (float)$point->location->latitude,
+                'delivery-point-name' => $point->name,
+                'delivery-point-type' => reset($point->type),
+                'delivery-point-address' => $address->street,
+                'delivery-point-city' => $address->city,
+                'delivery-point-postcode' => $address->post_code,
+                'delivery-point-comment' => (string)$point->location_description,
+            ];
+        }
+    }
+
+    private static function getDhlData($data, &$result)
+    {
+        foreach ($data as $point) {
+            $address = $point->address;
+            $result[] = [
+                'delivery-point-x' => $point->longitude,
+                'delivery-point-y' => $point->latitude,
+                'delivery-point-name' => $point->name,
+                'delivery-point-type' => $point->type,
+                'delivery-point-address' => $address->street,
+                'delivery-point-city' => $address->city,
+                'delivery-point-postcode' => $address->postcode,
+                'delivery-point-comment' => $address->name,
+            ];
+        }
+    }
 
 }

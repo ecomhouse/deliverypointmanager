@@ -17,9 +17,9 @@ class GenerateFileCommand implements GenerateFileCommandInterface
         $this->xmlBuilder = new XmlBuilder;
     }
 
-    public function execute(array $data, string $filename)
+    public function execute($data, string $filename, $speditor)
     {
-        $data = DeliveryPointFactory::build($data);
+        $data = DeliveryPointFactory::build($data, $speditor);
         $this->xmlBuilder->build($filename, $data, []);
         $this->csvBuilder->build($filename, $data, DeliveryPointFactory::getHeaders());
     }

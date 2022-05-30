@@ -28,22 +28,7 @@ class InpostApi implements SpeditorInterace
 
         $response = $this->connector->doRequest($url, $this->getParams());
         $points = json_decode($response->getBody());
-        $data = [];
-        foreach ($points->items as $point) {
-            $address = $point->address_details;
-            $deliveryPoint = new DeliveryPoint();
-            $deliveryPoint->setLongitude((float)$point->location->longitude);
-            $deliveryPoint->setLatitude((float)$point->location->latitude);
-            $deliveryPoint->setCode($point->name);
-            $deliveryPoint->setType(reset($point->type));
-            $deliveryPoint->setAddress((string)$address->street);
-            $deliveryPoint->setCity($address->city);
-            $deliveryPoint->setPostCode($address->post_code);
-            $deliveryPoint->setComment((string)$point->location_description);
-            $data[] = $deliveryPoint;
-        }
-
-        return $data;
+        return $points->items;
     }
 
     public function getCountPoints()
