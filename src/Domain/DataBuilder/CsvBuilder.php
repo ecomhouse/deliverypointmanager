@@ -12,7 +12,10 @@ class CsvBuilder implements DataBuilderInterface
         fputcsv($file, $headers, self::DELIMITER);
 
         foreach ($data as $row) {
-            fputcsv($file, $row->toArray());
+            if (is_object($row)) {
+                $row = $row->toArray();
+            }
+            fputcsv($file, $row);
         }
 
         fclose($file);
