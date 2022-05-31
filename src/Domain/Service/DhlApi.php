@@ -5,7 +5,7 @@ namespace EcomHouse\DeliveryPoints\Domain\Service;
 use EcomHouse\DeliveryPoints\Domain\Factory\DeliveryPointFactory;
 use SoapClient;
 
-class DhlApi implements SpeditorInterace
+class DhlApi implements SpeditorInterface
 {
     const WSDL_PROD = 'https://dhl24.com.pl/webapi2';
     const WSDL_SANDBOX = 'https://sandbox.dhl24.com.pl/webapi2';

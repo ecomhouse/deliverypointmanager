@@ -2,7 +2,7 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\Service;
 
-interface SpeditorInterace
+interface SpeditorInterface
 {
     /**
      * @param array $params

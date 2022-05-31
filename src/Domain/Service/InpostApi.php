@@ -5,7 +5,7 @@ namespace EcomHouse\DeliveryPoints\Domain\Service;
 use EcomHouse\DeliveryPoints\Domain\Factory\DeliveryPointFactory;
 use EcomHouse\DeliveryPoints\Infrastructure\Connector\ConnectorInterface;
 
-class InpostApi implements SpeditorInterace
+class InpostApi implements SpeditorInterface
 {
     const URI_PRODUCTION = 'https://api.inpost.pl/';
     const URI_SANDBOX = 'https://sandbox-api-gateway-pl.easypack24.net/';
