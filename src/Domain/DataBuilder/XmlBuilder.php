@@ -13,6 +13,10 @@ class XmlBuilder implements DataBuilderInterface
         foreach ($data as $key => $value) {
             $result = $dom->createElement('point');
             $root->appendChild($result);
+            if (is_object($value)) {
+                $value = $value->toArray();
+            }
+
             if (is_array($value)) {
                 foreach ($value as $k => $item) {
                     $result->appendChild($dom->createElement($k, htmlspecialchars($item ?? '', ENT_QUOTES)));

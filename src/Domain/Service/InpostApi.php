@@ -3,6 +3,8 @@
 namespace EcomHouse\DeliveryPoints\Domain\Service;
 
 use EcomHouse\DeliveryPoints\Domain\Factory\DeliveryPointFactory;
+use EcomHouse\DeliveryPoints\Domain\Helper\Speditor;
+use EcomHouse\DeliveryPoints\Domain\Model\DeliveryPoint;
 use EcomHouse\DeliveryPoints\Infrastructure\Connector\ConnectorInterface;
 
 class InpostApi implements SpeditorInterface
@@ -20,6 +22,10 @@ class InpostApi implements SpeditorInterface
         $this->config = $config;
     }
 
+    /**
+     * @param array $params
+     * @return DeliveryPoint[]
+     */
     public function getPoints(array $params = []): array
     {
         $url = $this->baseUri() . 'v1/points';
@@ -28,7 +34,12 @@ class InpostApi implements SpeditorInterface
         $response = $this->connector->doRequest($url, $this->getParams());
         $points = json_decode($response->getBody());
 
-        return DeliveryPointFactory::buildInpostData($points->items);
+        $result = [];
+        foreach ($points->items as $point) {
+            $result[] = DeliveryPointFactory::build($point, Speditor::INPOST);
+        }
+
+        return $result;
     }
 
     public function getCountPoints(): int

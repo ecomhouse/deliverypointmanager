@@ -2,6 +2,9 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\Factory;
 
+use EcomHouse\DeliveryPoints\Domain\Helper\Speditor;
+use EcomHouse\DeliveryPoints\Domain\Model\DeliveryPoint;
+
 class DeliveryPointFactory implements FactoryInterface
 {
     const COLUMN_DELIVERY_POINT_X = 'delivery-point-x';
@@ -27,42 +30,48 @@ class DeliveryPointFactory implements FactoryInterface
         ];
     }
 
-    public static function buildInpostData($data): array
+    /**
+     * @param array $data
+     * @param string $speditor
+     * @return DeliveryPoint
+     */
+    public static function build($data, string $speditor)
     {
-        $result = [];
-        foreach ($data as $point) {
-            $address = $point->address_details;
-            $result[] = [
-                'delivery-point-x' => (float)$point->location->longitude,
-                'delivery-point-y' => (float)$point->location->latitude,
-                'delivery-point-name' => $point->name,
-                'delivery-point-type' => reset($point->type),
-                'delivery-point-address' => $address->street,
-                'delivery-point-city' => $address->city,
-                'delivery-point-postcode' => $address->post_code,
-                'delivery-point-comment' => (string)$point->location_description,
-            ];
+        $deliveryPoint = new DeliveryPoint();
+        switch ($speditor) {
+            case Speditor::INPOST:
+                static::buildInpostData($data, $deliveryPoint);
+                break;
+            case Speditor::DHL:
+                static::buildDhlData($data, $deliveryPoint);
         }
-        return $result;
+        return $deliveryPoint;
     }
 
-    public static function buildDhlData($data): array
+    private static function buildInpostData($data, DeliveryPoint $deliveryPoint): void
     {
-        $result = [];
-        foreach ($data as $point) {
-            $address = $point->address;
-            $result[] = [
-                'delivery-point-x' => $point->longitude,
-                'delivery-point-y' => $point->latitude,
-                'delivery-point-name' => $point->name,
-                'delivery-point-type' => $point->type,
-                'delivery-point-address' => $address->street,
-                'delivery-point-city' => $address->city,
-                'delivery-point-postcode' => $address->postcode,
-                'delivery-point-comment' => $address->name,
-            ];
-        }
-        return $result;
+        $address = $data->address_details;
+        $deliveryPoint->setLongitude((float)$data->location->longitude);
+        $deliveryPoint->setLatitude((float)$data->location->latitude);
+        $deliveryPoint->setName($data->name);
+        $deliveryPoint->setType(reset($data->type));
+        $deliveryPoint->setAddress((string)$address->street);
+        $deliveryPoint->setCity($address->city);
+        $deliveryPoint->setPostCode($address->post_code);
+        $deliveryPoint->setComment((string)$data->location_description);
+    }
+
+    private static function buildDhlData($data, DeliveryPoint $deliveryPoint): void
+    {
+        $address = $data->address;
+        $deliveryPoint->setLongitude($data->longitude);
+        $deliveryPoint->setLatitude($data->latitude);
+        $deliveryPoint->setName($address->name);
+        $deliveryPoint->setType($data->type);
+        $deliveryPoint->setAddress($address->street);
+        $deliveryPoint->setCity($address->city);
+        $deliveryPoint->setPostCode($address->postcode);
+        $deliveryPoint->setComment($data->name);
     }
 
 }

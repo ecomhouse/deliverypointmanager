@@ -3,6 +3,7 @@
 namespace EcomHouse\DeliveryPoints\Domain\Service;
 
 use EcomHouse\DeliveryPoints\Domain\Factory\DeliveryPointFactory;
+use EcomHouse\DeliveryPoints\Domain\Helper\Speditor;
 use SoapClient;
 
 class DhlApi implements SpeditorInterface
@@ -26,7 +27,12 @@ class DhlApi implements SpeditorInterface
         $parameters['structure'] = $params;
         $response = $this->client->__soapCall("getNearestServicepoints", ['parameters' => $parameters]);
 
-        return DeliveryPointFactory::buildDhlData($response->getNearestServicepointsResult->points->item);
+        $result = [];
+        foreach ($response->getNearestServicepointsResult->points->item as $point) {
+            $result[] = DeliveryPointFactory::build($point, Speditor::DHL);
+        }
+
+        return $result;
     }
 
     private function getParams(): array

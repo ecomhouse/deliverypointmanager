@@ -6,7 +6,7 @@ class DeliveryPoint
 {
     private float $longitude;
     private float $latitude;
-    private string $code;
+    private string $name;
     private string $type;
     private string $address;
     private string $postCode;
@@ -48,17 +48,17 @@ class DeliveryPoint
     /**
      * @return string
      */
-    public function getCode()
+    public function getName(): string
     {
-        return $this->code;
+        return $this->name;
     }
 
     /**
-     * @param string $code
+     * @param string $name
      */
-    public function setCode(string $code): void
+    public function setName(string $name): void
     {
-        $this->code = $code;
+        $this->name = $name;
     }
 
     /**
@@ -139,6 +139,20 @@ class DeliveryPoint
     public function setType(string $type): void
     {
         $this->type = $type;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'x' => $this->longitude,
+            'y' => $this->latitude,
+            'name' => $this->name,
+            'type' => $this->type,
+            'address' => $this->address,
+            'city' => $this->city,
+            'postcode' => $this->postCode,
+            'comment' => $this->comment
+        ];
     }
 
 }
