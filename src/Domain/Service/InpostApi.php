@@ -14,12 +14,9 @@ class InpostApi implements SpeditorInterface
 
     private ConnectorInterface $connector;
 
-    protected array $config;
-
-    public function __construct(ConnectorInterface $connector, array $config = [])
+    public function __construct(ConnectorInterface $connector)
     {
         $this->connector = $connector;
-        $this->config = $config;
     }
 
     public function getName(): string
@@ -64,13 +61,13 @@ class InpostApi implements SpeditorInterface
     private function getParams(): array
     {
         return [
-            'headers' => ['Authorization' => 'Bearer ' . $this->config['token']]
+            'headers' => ['Authorization' => 'Bearer ' . $_ENV['INPOST_API_TOKEN']]
         ];
     }
 
     private function baseUri(): string
     {
-        if ($this->config['sandbox'] ?? false) {
+        if ($_ENV['SANDBOX'] ?? false) {
             return self::URI_SANDBOX;
         }
         return self::URI_PRODUCTION;

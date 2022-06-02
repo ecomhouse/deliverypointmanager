@@ -20,16 +20,8 @@ class GenerateFileCommand implements GenerateFileCommandInterface
     {
         foreach ($config['speditors'] as $param) {
             $this->speditors[] = match ($param) {
-                InpostApi::NAME => new InpostApi(new ConnectorApi(new GuzzleClient), ['sandbox' => $_ENV['SANDBOX'], 'token' => $_ENV['INPOST_API_TOKEN']]),
-                DhlApi::NAME => new DhlApi([
-                    'sandbox' => $_ENV['SANDBOX'],
-                    'username' => $_ENV['DHL_API_USER'],
-                    'password' => $_ENV['DHL_API_PASSWORD'],
-                    'country' => $_ENV['DHL_COUNTRY'],
-                    'postcode' => $_ENV['DHL_POSTCODE'],
-                    'city' => $_ENV['DHL_CITY'],
-                    'radius' => $_ENV['DHL_RADIUS']
-                ])
+                InpostApi::NAME => new InpostApi(new ConnectorApi(new GuzzleClient)),
+                DhlApi::NAME => new DhlApi()
             };
         }
 

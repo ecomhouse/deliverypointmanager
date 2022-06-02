@@ -11,13 +11,10 @@ class DhlApi implements SpeditorInterface
     const WSDL_PROD = 'https://dhl24.com.pl/webapi2';
     const WSDL_SANDBOX = 'https://sandbox.dhl24.com.pl/webapi2';
 
-    protected array $config;
-
     protected SoapClient $client;
 
-    public function __construct(array $config = [])
+    public function __construct()
     {
-        $this->config = $config;
         $this->client = new SoapClient($this->baseUri());
     }
 
@@ -30,10 +27,10 @@ class DhlApi implements SpeditorInterface
     {
         $parameters = $this->getParams();
         $parameters['structure'] = [
-            'country' => $this->config['country'],
-            'postcode' => $this->config['postcode'],
-            'city' => $this->config['city'],
-            'radius' => $this->config['radius'],
+            'country' => $_ENV['DHL_COUNTRY'],
+            'postcode' => $_ENV['DHL_POSTCODE'],
+            'city' => $_ENV['DHL_CITY'],
+            'radius' => $_ENV['DHL_RADIUS'],
         ];
         $response = $this->client->__soapCall("getNearestServicepoints", ['parameters' => $parameters]);
 
@@ -49,14 +46,14 @@ class DhlApi implements SpeditorInterface
     {
         return [
             'authData' => [
-                'username' => $this->config['username'], 'password' => $this->config['password']
+                'username' => $_ENV['DHL_API_USER'], 'password' => $_ENV['DHL_API_PASSWORD']
             ]
         ];
     }
 
     private function baseUri(): string
     {
-        if ($this->config['sandbox'] ?? false) {
+        if ($_ENV['SANDBOX'] ?? false) {
             return self::WSDL_SANDBOX;
         }
         return self::WSDL_PROD;

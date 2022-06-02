@@ -14,15 +14,7 @@ class DhlApiTest extends TestCase
     {
         $dotenv = Dotenv::createImmutable('/var/www/html/config/');
         $dotenv->load();
-        $this->dhlApi = new DhlApi([
-            'sandbox' => $_ENV['SANDBOX'],
-            'username' => $_ENV['DHL_API_USER'],
-            'password' => $_ENV['DHL_API_PASSWORD'],
-            'country' => 'PL',
-            'postcode' => '00110',
-            'city' => 'Warszawa',
-            'radius' => 500,
-        ]);
+        $this->dhlApi = new DhlApi();
     }
 
     public function testGetPoints()
