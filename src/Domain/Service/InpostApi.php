@@ -3,12 +3,12 @@
 namespace EcomHouse\DeliveryPoints\Domain\Service;
 
 use EcomHouse\DeliveryPoints\Domain\Factory\DeliveryPointFactory;
-use EcomHouse\DeliveryPoints\Domain\Helper\Speditor;
 use EcomHouse\DeliveryPoints\Domain\Model\DeliveryPoint;
 use EcomHouse\DeliveryPoints\Infrastructure\Connector\ConnectorInterface;
 
 class InpostApi implements SpeditorInterface
 {
+    const NAME = 'inpost';
     const URI_PRODUCTION = 'https://api.inpost.pl/';
     const URI_SANDBOX = 'https://sandbox-api-gateway-pl.easypack24.net/';
 
@@ -24,7 +24,7 @@ class InpostApi implements SpeditorInterface
 
     public function getName(): string
     {
-        return Speditor::INPOST;
+        return self::NAME;
     }
 
     /**
@@ -44,7 +44,7 @@ class InpostApi implements SpeditorInterface
 
         $result = [];
         foreach ($points->items as $point) {
-            $result[] = DeliveryPointFactory::build($point, Speditor::INPOST);
+            $result[] = DeliveryPointFactory::build($point, self::NAME);
         }
 
         return $result;

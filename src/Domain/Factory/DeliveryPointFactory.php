@@ -2,8 +2,9 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\Factory;
 
-use EcomHouse\DeliveryPoints\Domain\Helper\Speditor;
 use EcomHouse\DeliveryPoints\Domain\Model\DeliveryPoint;
+use EcomHouse\DeliveryPoints\Domain\Service\DhlApi;
+use EcomHouse\DeliveryPoints\Domain\Service\InpostApi;
 
 class DeliveryPointFactory implements FactoryInterface
 {
@@ -39,10 +40,10 @@ class DeliveryPointFactory implements FactoryInterface
     {
         $deliveryPoint = new DeliveryPoint();
         switch ($speditor) {
-            case Speditor::INPOST:
+            case InpostApi::NAME:
                 static::buildInpostData($data, $deliveryPoint);
                 break;
-            case Speditor::DHL:
+            case DhlApi::NAME:
                 static::buildDhlData($data, $deliveryPoint);
         }
         return $deliveryPoint;

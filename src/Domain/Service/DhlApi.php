@@ -3,11 +3,11 @@
 namespace EcomHouse\DeliveryPoints\Domain\Service;
 
 use EcomHouse\DeliveryPoints\Domain\Factory\DeliveryPointFactory;
-use EcomHouse\DeliveryPoints\Domain\Helper\Speditor;
 use SoapClient;
 
 class DhlApi implements SpeditorInterface
 {
+    const NAME = 'dhl';
     const WSDL_PROD = 'https://dhl24.com.pl/webapi2';
     const WSDL_SANDBOX = 'https://sandbox.dhl24.com.pl/webapi2';
 
@@ -23,7 +23,7 @@ class DhlApi implements SpeditorInterface
 
     public function getName(): string
     {
-        return Speditor::DHL;
+        return self::NAME;
     }
 
     public function getPoints(array $params = []): array
@@ -39,7 +39,7 @@ class DhlApi implements SpeditorInterface
 
         $result = [];
         foreach ($response->getNearestServicepointsResult->points->item as $point) {
-            $result[] = DeliveryPointFactory::build($point, Speditor::DHL);
+            $result[] = DeliveryPointFactory::build($point, self::NAME);
         }
 
         return $result;

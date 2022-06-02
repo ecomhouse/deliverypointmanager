@@ -16,7 +16,7 @@ final class XmlBuilderTest extends TestCase
 
     public function testBuild()
     {
-        $filename = "/var/www/html/var/data/" . $_ENV['INPOST_DELIVERY_POINTS_FILENAME'];
+        $filename = "/var/www/html/var/data/speditor";
         $data[] = [
             'delivery-point-x' => '0.00',
             'delivery-point-y' => '0.00',
@@ -29,7 +29,7 @@ final class XmlBuilderTest extends TestCase
         ];
 
         $xmlBuilder = new XmlBuilder;
-        $xmlBuilder->build($_ENV['INPOST_DELIVERY_POINTS_FILENAME'], $data, []);
+        $xmlBuilder->build('speditor', $data, []);
 
         $this->assertFileExists($filename.'.xml');
 
