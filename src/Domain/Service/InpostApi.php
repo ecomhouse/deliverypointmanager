@@ -22,6 +22,11 @@ class InpostApi implements SpeditorInterface
         $this->config = $config;
     }
 
+    public function getName(): string
+    {
+        return Speditor::INPOST;
+    }
+
     /**
      * @param array $params
      * @return DeliveryPoint[]
@@ -29,8 +34,11 @@ class InpostApi implements SpeditorInterface
     public function getPoints(array $params = []): array
     {
         $url = $this->baseUri() . 'v1/points';
-        $url .= '?page=' . $params['page'] ?? 1;
-        $url .= '&per_page=' . $params['per_page'] ?? 25;
+        $page = $params['page'] ?? 1;
+        $url .= '?page=' . $page;
+        $perPage = $params['per_page'] ?? $this->getCountPoints();
+        $url .= '&per_page=' . $perPage;
+
         $response = $this->connector->doRequest($url, $this->getParams());
         $points = json_decode($response->getBody());
 

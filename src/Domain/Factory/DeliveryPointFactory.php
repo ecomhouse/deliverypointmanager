@@ -66,12 +66,12 @@ class DeliveryPointFactory implements FactoryInterface
         $address = $data->address;
         $deliveryPoint->setLongitude($data->longitude);
         $deliveryPoint->setLatitude($data->latitude);
-        $deliveryPoint->setName($address->name);
+        $deliveryPoint->setName($data->name);
         $deliveryPoint->setType($data->type);
         $deliveryPoint->setAddress($address->street);
         $deliveryPoint->setCity($address->city);
         $deliveryPoint->setPostCode($address->postcode);
-        $deliveryPoint->setComment($data->name);
+        $deliveryPoint->setComment($address->name);
     }
 
 }
