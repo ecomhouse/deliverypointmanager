@@ -28,9 +28,9 @@ final class CsvBuilderTest extends TestCase
             ['Column1', 'Column2', 'Column3']
         ];
 
-        $filename = "/var/www/html/var/data/" . $_ENV['INPOST_DELIVERY_POINTS_FILENAME'];
+        $filename = "/var/www/html/var/data/speditor";
         $csvBuilder = new CsvBuilder;
-        $csvBuilder->build($_ENV['INPOST_DELIVERY_POINTS_FILENAME'], $data, $headers);
+        $csvBuilder->build('speditor', $data, $headers);
 
         $this->assertFileExists($filename.'.csv');
 

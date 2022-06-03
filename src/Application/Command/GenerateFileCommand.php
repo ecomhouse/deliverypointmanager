@@ -6,30 +6,39 @@ use EcomHouse\DeliveryPoints\Domain\DataBuilder\CsvBuilder;
 use EcomHouse\DeliveryPoints\Domain\DataBuilder\XmlBuilder;
 use EcomHouse\DeliveryPoints\Domain\Factory\DeliveryPointFactory;
 use EcomHouse\DeliveryPoints\Domain\Helper\FileExtension;
+use EcomHouse\DeliveryPoints\Domain\Service\DhlApi;
+use EcomHouse\DeliveryPoints\Domain\Service\InpostApi;
+use EcomHouse\DeliveryPoints\Infrastructure\Connector\ConnectorApi;
+use GuzzleHttp\Client as GuzzleClient;
 
 class GenerateFileCommand implements GenerateFileCommandInterface
 {
-    protected array $config;
-    protected CsvBuilder $csvBuilder;
-    protected XmlBuilder $xmlBuilder;
+    private array $dataBuilder = [];
+    private array $speditors = [];
 
     public function __construct(array $config = [])
     {
-        $this->config = $config;
-        $this->csvBuilder = new CsvBuilder;
-        $this->xmlBuilder = new XmlBuilder;
+        foreach ($config['speditors'] as $param) {
+            $this->speditors[] = match ($param) {
+                InpostApi::NAME => new InpostApi(new ConnectorApi(new GuzzleClient)),
+                DhlApi::NAME => new DhlApi()
+            };
+        }
+
+        foreach ($config['extensions'] as $param) {
+            $this->dataBuilder[] = match ($param) {
+                FileExtension::XML => new XmlBuilder,
+                FileExtension::CSV => new CsvBuilder
+            };
+        }
     }
 
-    public function execute($data, string $filename)
+    public function execute()
     {
-        foreach ($this->config as $param) {
-            switch ($param) {
-                case FileExtension::XML:
-                    $this->xmlBuilder->build($filename, $data, []);
-                    break;
-                case FileExtension::CSV:
-                    $this->csvBuilder->build($filename, $data, DeliveryPointFactory::getHeaders());
-                    break;
+        foreach ($this->speditors as $speditor) {
+            $data = $speditor->getPoints();
+            foreach ($this->dataBuilder as $dataBuilder) {
+                $dataBuilder->build($speditor->getName(), $data, DeliveryPointFactory::getHeaders());
             }
         }
     }
