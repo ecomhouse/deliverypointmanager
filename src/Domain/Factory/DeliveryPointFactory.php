@@ -32,25 +32,22 @@ class DeliveryPointFactory implements FactoryInterface
     }
 
     /**
-     * @param array $data
+     * @param $data
      * @param string $speditor
-     * @return DeliveryPoint
+     * @return DeliveryPoint|null
      */
-    public static function build($data, string $speditor)
+    public static function build($data, string $speditor): ?DeliveryPoint
     {
-        $deliveryPoint = new DeliveryPoint();
-        switch ($speditor) {
-            case InpostApi::NAME:
-                static::buildInpostData($data, $deliveryPoint);
-                break;
-            case DhlApi::NAME:
-                static::buildDhlData($data, $deliveryPoint);
-        }
-        return $deliveryPoint;
+        return match ($speditor) {
+            InpostApi::NAME => self::buildInpostData($data),
+            DhlApi::NAME => self::buildDhlData($data),
+            default => null
+        };
     }
 
-    private static function buildInpostData($data, DeliveryPoint $deliveryPoint): void
+    private static function buildInpostData($data): DeliveryPoint
     {
+        $deliveryPoint = new DeliveryPoint();
         $address = $data->address_details;
         $deliveryPoint->setLongitude((float)$data->location->longitude);
         $deliveryPoint->setLatitude((float)$data->location->latitude);
@@ -60,10 +57,12 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setCity($address->city);
         $deliveryPoint->setPostCode($address->post_code);
         $deliveryPoint->setComment((string)$data->location_description);
+        return $deliveryPoint;
     }
 
-    private static function buildDhlData($data, DeliveryPoint $deliveryPoint): void
+    private static function buildDhlData($data): DeliveryPoint
     {
+        $deliveryPoint = new DeliveryPoint();
         $address = $data->address;
         $deliveryPoint->setLongitude($data->longitude);
         $deliveryPoint->setLatitude($data->latitude);
@@ -73,6 +72,7 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setCity($address->city);
         $deliveryPoint->setPostCode($address->postcode);
         $deliveryPoint->setComment($address->name);
+        return $deliveryPoint;
     }
 
 }
