@@ -8,14 +8,12 @@ use EcomHouse\DeliveryPoints\Infrastructure\Connector\ConnectorApi;
 use GuzzleHttp\Client as GuzzleClient;
 use PHPUnit\Framework\TestCase;
 
-class InpostApiTest extends TestCase
+final class InpostApiTest extends TestCase
 {
     protected InpostApi $inpostApi;
 
     protected function setUp(): void
     {
-        $dotenv = Dotenv::createImmutable('/var/www/html/config/');
-        $dotenv->load();
         $this->inpostApi = new InpostApi(new ConnectorApi(new GuzzleClient));
     }
 

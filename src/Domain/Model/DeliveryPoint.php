@@ -8,7 +8,7 @@ class DeliveryPoint
     private float $latitude;
     private string $name;
     private string $type;
-    private string $address;
+    private string $street;
     private string $postCode;
     private string $city;
     private string $comment;
@@ -64,17 +64,17 @@ class DeliveryPoint
     /**
      * @return string
      */
-    public function getAddress(): string
+    public function getStreet(): string
     {
-        return $this->address;
+        return $this->street;
     }
 
     /**
-     * @param string $address
+     * @param string $street
      */
-    public function setAddress(string $address): void
+    public function setStreet(string $street): void
     {
-        $this->address = $address;
+        $this->street = $street;
     }
 
     /**
@@ -148,7 +148,7 @@ class DeliveryPoint
             'y' => $this->latitude,
             'name' => $this->name,
             'type' => $this->type,
-            'address' => $this->address,
+            'street' => $this->street,
             'city' => $this->city,
             'postcode' => $this->postCode,
             'comment' => $this->comment
