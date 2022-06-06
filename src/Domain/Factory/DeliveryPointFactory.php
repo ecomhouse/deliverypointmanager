@@ -6,6 +6,7 @@ use EcomHouse\DeliveryPoints\Domain\Model\DeliveryPoint;
 use EcomHouse\DeliveryPoints\Domain\Service\DhlApi;
 use EcomHouse\DeliveryPoints\Domain\Service\InpostApi;
 use EcomHouse\DeliveryPoints\Domain\Service\OrlenApi;
+use EcomHouse\DeliveryPoints\Domain\Service\PocztaPolskaApi;
 
 class DeliveryPointFactory implements FactoryInterface
 {
@@ -43,6 +44,7 @@ class DeliveryPointFactory implements FactoryInterface
             InpostApi::NAME => self::buildInpostData($data),
             DhlApi::NAME => self::buildDhlData($data),
             OrlenApi::NAME => self::buildOrlenData($data),
+            PocztaPolskaApi::NAME => self::buildPostOfficeData($data),
             default => null
         };
     }
@@ -91,4 +93,17 @@ class DeliveryPointFactory implements FactoryInterface
         return $deliveryPoint;
     }
 
+    private static function buildPostOfficeData($data): DeliveryPoint
+    {
+        $deliveryPoint = new DeliveryPoint();
+        $deliveryPoint->setLongitude($data->x);
+        $deliveryPoint->setLatitude($data->y);
+        $deliveryPoint->setName($data->nazwa);
+        $deliveryPoint->setType($data->typ);
+        $deliveryPoint->setStreet($data->ulica);
+        $deliveryPoint->setCity($data->miejscowosc);
+        $deliveryPoint->setPostCode($data->kod);
+        $deliveryPoint->setComment($data->opis);
+        return $deliveryPoint;
+    }
 }

@@ -9,6 +9,7 @@ use EcomHouse\DeliveryPoints\Domain\Helper\FileExtension;
 use EcomHouse\DeliveryPoints\Domain\Service\DhlApi;
 use EcomHouse\DeliveryPoints\Domain\Service\InpostApi;
 use EcomHouse\DeliveryPoints\Domain\Service\OrlenApi;
+use EcomHouse\DeliveryPoints\Domain\Service\PocztaPolskaApi;
 use EcomHouse\DeliveryPoints\Infrastructure\Connector\ConnectorApi;
 use GuzzleHttp\Client as GuzzleClient;
 
@@ -23,7 +24,8 @@ class GenerateFileCommand implements GenerateFileCommandInterface
             $this->speditors[] = match ($param) {
                 InpostApi::NAME => new InpostApi(new ConnectorApi(new GuzzleClient)),
                 DhlApi::NAME => new DhlApi(),
-                OrlenApi::NAME => new OrlenApi()
+                OrlenApi::NAME => new OrlenApi(),
+                PocztaPolskaApi::NAME => new PocztaPolskaApi()
             };
         }
 
