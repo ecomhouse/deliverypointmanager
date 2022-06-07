@@ -7,11 +7,13 @@ class DeliveryPoint
     private float $longitude;
     private float $latitude;
     private string $name;
+    private string $code;
     private string $type;
     private string $street;
     private string $postCode;
     private string $city;
-    private string $comment;
+    private string $openingHours;
+    private string $hint;
 
     /**
      * @return float
@@ -59,6 +61,22 @@ class DeliveryPoint
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
     }
 
     /**
@@ -112,22 +130,6 @@ class DeliveryPoint
     /**
      * @return string
      */
-    public function getComment(): string
-    {
-        return $this->comment;
-    }
-
-    /**
-     * @param string $comment
-     */
-    public function setComment(string $comment): void
-    {
-        $this->comment = $comment;
-    }
-
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
@@ -141,17 +143,51 @@ class DeliveryPoint
         $this->type = $type;
     }
 
+    /**
+     * @return string
+     */
+    public function getOpeningHours(): string
+    {
+        return $this->openingHours;
+    }
+
+    /**
+     * @param string $openingHours
+     */
+    public function setOpeningHours(string $openingHours): void
+    {
+        $this->openingHours = $openingHours;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHint(): string
+    {
+        return $this->hint;
+    }
+
+    /**
+     * @param string $hint
+     */
+    public function setHint(string $hint): void
+    {
+        $this->hint = $hint;
+    }
+
     public function toArray(): array
     {
         return [
             'x' => $this->longitude,
             'y' => $this->latitude,
             'name' => $this->name,
+            'code' => $this->code,
             'type' => $this->type,
             'street' => $this->street,
             'city' => $this->city,
             'postcode' => $this->postCode,
-            'comment' => $this->comment
+            'opening_hours' => $this->openingHours,
+            'hint' => $this->hint
         ];
     }
 

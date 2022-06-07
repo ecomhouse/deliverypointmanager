@@ -19,7 +19,7 @@ To run the application you must run a command: php run.php with parameters
 
 Example:
 
-php run.php xml,csv inpost,dhl - parameters must be decimals without spaces
+php run.php xml,csv inpost,dhl,orlen,pocztapolska - parameters must be decimals without spaces
 
 php run.php xml inpost - generate only xml files for only inpost speditor
 

@@ -2,33 +2,37 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\Factory;
 
+use EcomHouse\DeliveryPoints\Domain\Helper\WeekDayHelper;
 use EcomHouse\DeliveryPoints\Domain\Model\DeliveryPoint;
 use EcomHouse\DeliveryPoints\Domain\Service\DhlApi;
 use EcomHouse\DeliveryPoints\Domain\Service\InpostApi;
 use EcomHouse\DeliveryPoints\Domain\Service\OrlenApi;
+use EcomHouse\DeliveryPoints\Domain\Service\PocztaPolskaApi;
 
 class DeliveryPointFactory implements FactoryInterface
 {
     const COLUMN_DELIVERY_POINT_X = 'delivery-point-x';
     const COLUMN_DELIVERY_POINT_Y = 'delivery-point-y';
+    const COLUMN_DELIVERY_POINT_NAME = 'delivery-point-name';
     const COLUMN_DELIVERY_POINT_CODE = 'delivery-point-code';
     const COLUMN_DELIVERY_POINT_TYPE = 'delivery-point-type';
     const COLUMN_DELIVERY_POINT_ADDRESS = 'delivery-point-address';
     const COLUMN_DELIVERY_POINT_CITY = 'delivery-point-city';
     const COLUMN_DELIVERY_POINT_POSTCODE = 'delivery-point-postcode';
-    const COLUMN_DELIVERY_POINT_COMMENT = 'delivery-point-comment';
+    const COLUMN_DELIVERY_POINT_HINT = 'delivery-point-hint';
 
     public static function getHeaders(): array
     {
         return [
             self::COLUMN_DELIVERY_POINT_X,
             self::COLUMN_DELIVERY_POINT_Y,
+            self::COLUMN_DELIVERY_POINT_NAME,
             self::COLUMN_DELIVERY_POINT_CODE,
             self::COLUMN_DELIVERY_POINT_TYPE,
             self::COLUMN_DELIVERY_POINT_ADDRESS,
             self::COLUMN_DELIVERY_POINT_CITY,
             self::COLUMN_DELIVERY_POINT_POSTCODE,
-            self::COLUMN_DELIVERY_POINT_COMMENT
+            self::COLUMN_DELIVERY_POINT_HINT
         ];
     }
 
@@ -43,6 +47,7 @@ class DeliveryPointFactory implements FactoryInterface
             InpostApi::NAME => self::buildInpostData($data),
             DhlApi::NAME => self::buildDhlData($data),
             OrlenApi::NAME => self::buildOrlenData($data),
+            PocztaPolskaApi::NAME => self::buildPostOfficeData($data),
             default => null
         };
     }
@@ -54,11 +59,13 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setLongitude((float)$data->location->longitude);
         $deliveryPoint->setLatitude((float)$data->location->latitude);
         $deliveryPoint->setName($data->name);
+        $deliveryPoint->setCode($data->name);
         $deliveryPoint->setType(reset($data->type));
         $deliveryPoint->setStreet((string)$address->street);
         $deliveryPoint->setCity($address->city);
         $deliveryPoint->setPostCode($address->post_code);
-        $deliveryPoint->setComment((string)$data->location_description);
+        $deliveryPoint->setOpeningHours($data->opening_hours ?? '');
+        $deliveryPoint->setHint((string)$data->location_description);
         return $deliveryPoint;
     }
 
@@ -69,11 +76,13 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setLongitude($data->longitude);
         $deliveryPoint->setLatitude($data->latitude);
         $deliveryPoint->setName($data->name);
+        $deliveryPoint->setCode($address->name ?? $data->name);
         $deliveryPoint->setType($data->type);
         $deliveryPoint->setStreet($address->street);
         $deliveryPoint->setCity($address->city);
         $deliveryPoint->setPostCode($address->postcode);
-        $deliveryPoint->setComment($address->name);
+        $deliveryPoint->setOpeningHours(WeekDayHelper::getOpeningHours($data));
+        $deliveryPoint->setHint($address->name);
         return $deliveryPoint;
     }
 
@@ -83,12 +92,29 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setLongitude($data->Longitude);
         $deliveryPoint->setLatitude($data->Latitude);
         $deliveryPoint->setName($data->DestinationCode);
+        $deliveryPoint->setCode($data->DestinationCode);
         $deliveryPoint->setType($data->PointType);
         $deliveryPoint->setStreet($data->StreetName);
         $deliveryPoint->setCity($data->City);
         $deliveryPoint->setPostCode($data->ZipCode);
-        $deliveryPoint->setComment($data->Location ?? '');
+        $deliveryPoint->setOpeningHours($data->OpeningHours ?? '');
+        $deliveryPoint->setHint($data->Location ?? '');
         return $deliveryPoint;
     }
 
+    private static function buildPostOfficeData($data): DeliveryPoint
+    {
+        $deliveryPoint = new DeliveryPoint();
+        $deliveryPoint->setLongitude($data->x);
+        $deliveryPoint->setLatitude($data->y);
+        $deliveryPoint->setName($data->nazwa);
+        $deliveryPoint->setCode($data->nazwa);
+        $deliveryPoint->setType($data->typ);
+        $deliveryPoint->setStreet($data->ulica);
+        $deliveryPoint->setCity($data->miejscowosc);
+        $deliveryPoint->setPostCode($data->kod);
+        $deliveryPoint->setOpeningHours($data->opis);
+        $deliveryPoint->setHint($data->opis);
+        return $deliveryPoint;
+    }
 }
