@@ -5,7 +5,7 @@ namespace EcomHouse\DeliveryPoints\Domain\Helper;
 use EcomHouse\DeliveryPoints\Infrastructure\Connector\ConnectorUri;
 use ZipArchive;
 
-class ZipHelper
+final class ZipHelper
 {
     private ZipArchive $zip;
 

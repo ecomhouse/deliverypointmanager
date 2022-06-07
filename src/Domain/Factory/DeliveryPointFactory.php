@@ -2,6 +2,7 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\Factory;
 
+use EcomHouse\DeliveryPoints\Domain\Helper\WeekDayHelper;
 use EcomHouse\DeliveryPoints\Domain\Model\DeliveryPoint;
 use EcomHouse\DeliveryPoints\Domain\Service\DhlApi;
 use EcomHouse\DeliveryPoints\Domain\Service\InpostApi;
@@ -80,13 +81,7 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setStreet($address->street);
         $deliveryPoint->setCity($address->city);
         $deliveryPoint->setPostCode($address->postcode);
-        $openingHours = '';
-        $weekDays = ['PN' => 'mon', 'WT' => 'tue', 'SR' => 'wed', 'CZ' => 'thu', 'PI' => 'fri', 'SO' => 'sat', 'NI' => 'sun'];
-        foreach ($weekDays as $key => $value) {
-            $openingHours .= $key . '.: ' . $data->{$value . 'Open'} . '-' . $data->{$value . 'Close'} . ' ';
-        }
-
-        $deliveryPoint->setOpeningHours(trim($openingHours));
+        $deliveryPoint->setOpeningHours(WeekDayHelper::getOpeningHours($data));
         $deliveryPoint->setHint($address->name);
         return $deliveryPoint;
     }

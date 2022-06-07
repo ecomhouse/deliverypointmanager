@@ -2,7 +2,7 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\Helper;
 
-class FileExtension
+final class FileExtension
 {
     const XML = 'xml';
     const CSV = 'csv';
