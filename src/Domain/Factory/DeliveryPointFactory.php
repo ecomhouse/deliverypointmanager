@@ -76,11 +76,11 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setLongitude($data->longitude);
         $deliveryPoint->setLatitude($data->latitude);
         $deliveryPoint->setName($data->name);
-        $deliveryPoint->setCode($address->name ?? $data->name);
+        $deliveryPoint->setCode($address->name ?: $data->name);
         $deliveryPoint->setType($data->type);
         $deliveryPoint->setStreet($address->street);
         $deliveryPoint->setCity($address->city);
-        $deliveryPoint->setPostCode($address->postcode);
+        $deliveryPoint->setPostCode(substr_replace($address->postcode, "-", 2, 0));
         $deliveryPoint->setOpeningHours(WeekDayHelper::getOpeningHours($data));
         $deliveryPoint->setHint($address->name);
         return $deliveryPoint;
