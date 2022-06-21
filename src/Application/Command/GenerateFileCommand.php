@@ -42,12 +42,16 @@ class GenerateFileCommand implements GenerateFileCommandInterface
 
     public function execute()
     {
-        foreach ($this->speditors as $speditor) {
-            $data = $speditor->getPoints();
-            foreach ($this->dataBuilder as $dataBuilder) {
-                $dataBuilder->build($speditor->getName(), $data, DeliveryPointFactory::getHeaders());
-                $this->logger->info('Import data delivery points', ['speditor' => $speditor->getName(), 'file' => $dataBuilder->getFileExtension(), 'count' => count($data)]);
+        try {
+            foreach ($this->speditors as $speditor) {
+                $data = $speditor->getPoints();
+                foreach ($this->dataBuilder as $dataBuilder) {
+                    $dataBuilder->build($speditor->getName(), $data, DeliveryPointFactory::getHeaders());
+                    $this->logger->info('Import data delivery points', ['speditor' => $speditor->getName(), 'file' => $dataBuilder->getFileExtension(), 'count' => count($data)]);
+                }
             }
+        } catch (\Exception $e) {
+            $this->logger->critical($e->getMessage(), $e->getTrace());
         }
     }
 }
