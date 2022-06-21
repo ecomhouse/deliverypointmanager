@@ -34,8 +34,8 @@ class GenerateFileCommand implements GenerateFileCommandInterface
 
         foreach ($config['extensions'] as $param) {
             $this->dataBuilder[] = match ($param) {
-                FileExtension::XML => new XmlBuilder,
-                FileExtension::CSV => new CsvBuilder
+                XmlBuilder::FILE_EXTENSION => new XmlBuilder,
+                CsvBuilder::FILE_EXTENSION => new CsvBuilder
             };
         }
     }
