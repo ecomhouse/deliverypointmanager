@@ -2,7 +2,7 @@
 
 namespace EcomHouse\DeliveryPoints\Infrastructure\Logger;
 
-use Monolog\Formatter\JsonFormatter;
+use EcomHouse\DeliveryPoints\Infrastructure\Logger\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
 
 class Logger extends \Monolog\Logger

@@ -46,7 +46,7 @@ class GenerateFileCommand implements GenerateFileCommandInterface
             $data = $speditor->getPoints();
             foreach ($this->dataBuilder as $dataBuilder) {
                 $dataBuilder->build($speditor->getName(), $data, DeliveryPointFactory::getHeaders());
-                $this->logger->info($speditor->getName() . ' count: ' . count($data) . ' ' . $dataBuilder->getFileExtension());
+                $this->logger->info('Import data delivery points', ['speditor' => $speditor->getName(), 'file' => $dataBuilder->getFileExtension(), 'count' => count($data)]);
             }
         }
     }
