@@ -11,15 +11,18 @@ use EcomHouse\DeliveryPoints\Domain\Service\InpostApi;
 use EcomHouse\DeliveryPoints\Domain\Service\OrlenApi;
 use EcomHouse\DeliveryPoints\Domain\Service\PocztaPolskaApi;
 use EcomHouse\DeliveryPoints\Infrastructure\Connector\ConnectorApi;
+use EcomHouse\DeliveryPoints\Infrastructure\Logger\Logger;
 use GuzzleHttp\Client as GuzzleClient;
 
 class GenerateFileCommand implements GenerateFileCommandInterface
 {
     private array $dataBuilder = [];
     private array $speditors = [];
+    private Logger $logger;
 
     public function __construct(array $config = [])
     {
+        $this->logger = new Logger('default');
         foreach ($config['speditors'] as $param) {
             $this->speditors[] = match ($param) {
                 InpostApi::NAME => new InpostApi(new ConnectorApi(new GuzzleClient)),
@@ -43,6 +46,7 @@ class GenerateFileCommand implements GenerateFileCommandInterface
             $data = $speditor->getPoints();
             foreach ($this->dataBuilder as $dataBuilder) {
                 $dataBuilder->build($speditor->getName(), $data, DeliveryPointFactory::getHeaders());
+                $this->logger->info($speditor->getName(). ' count: '.count($data));
             }
         }
     }
