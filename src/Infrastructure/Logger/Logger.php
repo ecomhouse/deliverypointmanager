@@ -7,7 +7,7 @@ use Monolog\Handler\StreamHandler;
 
 class Logger extends \Monolog\Logger
 {
-    const PATH = '/var/www/html/var/log/logs.log';
+    const PATH = 'var/log/delivery-points.log';
 
     public function setHandlers(array $handlers): self
     {
