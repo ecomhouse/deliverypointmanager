@@ -1,5 +1,10 @@
 ![methods][img1]
 
+## Version
+[![version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://semver.org)
+![build](https://img.shields.io/badge/build-passing-green?labelColor=gray&style=flat)
+
+
 # EcomHouse DeliveryPoints Application
 
 ## Description
