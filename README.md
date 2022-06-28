@@ -56,4 +56,10 @@ run command:
 ./vendor/bin/phpunit tests
 ```
 
+## Security
+
+If you discover a security vulnerability within this package, please send an email to help@ecom.house . All security vulnerabilities will be promptly addressed. You may view our full security policy [here](./.github/SECURITY.md).
+
+
+
 [img1]: .github/logo.svg
