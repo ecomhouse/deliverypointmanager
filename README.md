@@ -13,10 +13,20 @@ The command application connects via the API of various speditors and downloads 
 
 ## Installation
 
+Installation application on docker:
+
 1. run script: ./start
 2. run script: ./shell
 3. run command: composer install
 4. you need to create an .env file in the config/ folder. Example in the .env.example file
+
+Installation is super-easy via [Composer](https://getcomposer.org/):
+
+```bash
+$ composer require ecomhouse/deliverypoints
+```
+
+or add it by hand to your `composer.json` file.
 
 ## Usage
 
