@@ -1,3 +1,5 @@
+![methods][img1]
+
 # EcomHouse DeliveryPoints Application
 
 EcomHouse DeliveryPoint API - Simple PHP Application without framework.
@@ -34,3 +36,5 @@ Other:
 You need to create an phpunit.xml file in the root project. Example in the phpunit.xml.dist file
 
 run command: ./vendor/bin/phpunit tests
+
+[img1]: logo.svg
