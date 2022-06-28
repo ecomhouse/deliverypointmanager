@@ -70,6 +70,8 @@ run command:
 
 If you discover a security vulnerability within this package, please send an email to help@ecom.house . All security vulnerabilities will be promptly addressed. You may view our full security policy [here](./.github/SECURITY.md).
 
+## License
 
+EcomHouse DeliveryPoints is licensed under [The BSD 3-Clause License](LICENSE).
 
 [img1]: .github/logo.svg
