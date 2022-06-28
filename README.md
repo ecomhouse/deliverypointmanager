@@ -41,9 +41,23 @@ $generateFileCommand = new EcomHouse\DeliveryPoints\Application\Command\Generate
 $generateFileCommand->execute();
 ```
 
+## Usage Notes .ENV
+
+When a new developer clones your codebase, they will have an additional
+one-time step to manually copy the `.env.example` file to `.env` and fill-in
+their own values (or get any sensitive values from a project co-worker).
+
+Example:
+```shell
+SANDBOX=true
+INPOST_API_TOKEN="token"
+```
+
+Sandbox=false for production environments.
+
 ### Scripts
 
-To run the application you must run a command: php run.php with parameters
+To run the application you must run a command: php run.php with parameters.
 
 Example:
 ```php
