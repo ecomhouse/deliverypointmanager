@@ -8,7 +8,7 @@ class ConnectorUri implements ConnectorInterface
 
     public function doRequest(string $uriEndpoint, array $params = [], string $requestMethod = 'GET')
     {
-        $fileName = self::PATH . basename($uriEndpoint);
+        $fileName = $_ENV['FILE_PATH_DIRECTORY'] . basename($uriEndpoint);
         file_put_contents($fileName, file_get_contents($uriEndpoint));
 
         return $fileName;
