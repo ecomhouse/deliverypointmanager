@@ -9,7 +9,7 @@ class CsvBuilder implements DataBuilderInterface
 
     public function build(string $filename, array $data, array $headers): void
     {
-        $file = fopen(self::PATH_FILENAME . $filename . '.' . self::FILE_EXTENSION, 'w');
+        $file = fopen($_ENV['FILE_PATH_DIRECTORY'] . $filename . '.' . self::FILE_EXTENSION, 'w');
         fputcsv($file, $headers, self::DELIMITER);
 
         foreach ($data as $row) {

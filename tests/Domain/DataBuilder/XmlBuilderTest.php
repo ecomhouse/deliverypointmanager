@@ -16,7 +16,7 @@ final class XmlBuilderTest extends TestCase
 
     public function testBuild()
     {
-        $filename = "var/data/speditor";
+        $filename = $_ENV['FILE_PATH_DIRECTORY'] ."speditor";
         $data[] = [
             'delivery-point-x' => '0.00',
             'delivery-point-y' => '0.00',

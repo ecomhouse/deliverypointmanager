@@ -28,7 +28,7 @@ final class CsvBuilderTest extends TestCase
             ['Column1', 'Column2', 'Column3']
         ];
 
-        $filename = "var/data/speditor";
+        $filename = $_ENV['FILE_PATH_DIRECTORY'] ."speditor";
         $csvBuilder = new CsvBuilder;
         $csvBuilder->build('speditor', $data, $headers);
 
