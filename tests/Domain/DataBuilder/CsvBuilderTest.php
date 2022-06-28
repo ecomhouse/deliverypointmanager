@@ -10,7 +10,7 @@ final class CsvBuilderTest extends TestCase
 {
     protected function setUp(): void
     {
-        $dotenv = Dotenv::createImmutable('/var/www/html/config/');
+        $dotenv = Dotenv::createImmutable('config/');
         $dotenv->load();
     }
 
@@ -28,7 +28,7 @@ final class CsvBuilderTest extends TestCase
             ['Column1', 'Column2', 'Column3']
         ];
 
-        $filename = "/var/www/html/var/data/speditor";
+        $filename = "var/data/speditor";
         $csvBuilder = new CsvBuilder;
         $csvBuilder->build('speditor', $data, $headers);
 

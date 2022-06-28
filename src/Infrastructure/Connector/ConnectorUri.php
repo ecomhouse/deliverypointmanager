@@ -4,7 +4,7 @@ namespace EcomHouse\DeliveryPoints\Infrastructure\Connector;
 
 class ConnectorUri implements ConnectorInterface
 {
-    const PATH = '/var/www/html/var/data/';
+    const PATH = 'var/data/';
 
     public function doRequest(string $uriEndpoint, array $params = [], string $requestMethod = 'GET')
     {
