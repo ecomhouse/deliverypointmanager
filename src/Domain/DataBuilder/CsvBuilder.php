@@ -4,11 +4,12 @@ namespace EcomHouse\DeliveryPoints\Domain\DataBuilder;
 
 class CsvBuilder implements DataBuilderInterface
 {
+    const FILE_EXTENSION = 'csv';
     private const DELIMITER = ',';
 
     public function build(string $filename, array $data, array $headers): void
     {
-        $file = fopen(self::PATH_FILENAME . $filename . '.csv', 'w');
+        $file = fopen(self::PATH_FILENAME . $filename . '.' . self::FILE_EXTENSION, 'w');
         fputcsv($file, $headers, self::DELIMITER);
 
         foreach ($data as $row) {
@@ -21,4 +22,8 @@ class CsvBuilder implements DataBuilderInterface
         fclose($file);
     }
 
+    public function getFileExtension(): string
+    {
+        return self::FILE_EXTENSION;
+    }
 }

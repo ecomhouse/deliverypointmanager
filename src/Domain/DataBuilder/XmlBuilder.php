@@ -4,6 +4,8 @@ namespace EcomHouse\DeliveryPoints\Domain\DataBuilder;
 
 class XmlBuilder implements DataBuilderInterface
 {
+    const FILE_EXTENSION = 'xml';
+
     public function build(string $filename, array $data, array $headers): void
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
@@ -26,7 +28,11 @@ class XmlBuilder implements DataBuilderInterface
             }
         }
 
-        $dom->save(self::PATH_FILENAME . $filename . '.xml');
+        $dom->save(self::PATH_FILENAME . $filename . '.'.self::FILE_EXTENSION);
     }
 
+    public function getFileExtension(): string
+    {
+        return self::FILE_EXTENSION;
+    }
 }
