@@ -2,16 +2,18 @@
 
 namespace Infrastructure\Connector;
 
+use Dotenv\Dotenv;
+use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 
 final class ConnectorApiTest extends TestCase
 {
-    protected $client;
+    protected Client $client;
 
     protected function setUp(): void
     {
-        $this->client = new \GuzzleHttp\Client(['base_uri' => 'https://sandbox-api-gateway-pl.easypack24.net/']);
-        $dotenv = \Dotenv\Dotenv::createImmutable('/var/www/html/config/');
+        $this->client = new Client(['base_uri' => 'https://sandbox-api-gateway-pl.easypack24.net/']);
+        $dotenv = Dotenv::createImmutable('config/');
         $dotenv->load();
     }
 

@@ -10,13 +10,13 @@ final class XmlBuilderTest extends TestCase
 {
     protected function setUp(): void
     {
-        $dotenv = Dotenv::createImmutable('/var/www/html/config/');
+        $dotenv = Dotenv::createImmutable('config/');
         $dotenv->load();
     }
 
     public function testBuild()
     {
-        $filename = "/var/www/html/var/data/speditor";
+        $filename = $_ENV['FILE_PATH_DIRECTORY'] ."speditor";
         $data[] = [
             'delivery-point-x' => '0.00',
             'delivery-point-y' => '0.00',

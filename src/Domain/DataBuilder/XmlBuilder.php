@@ -28,7 +28,7 @@ class XmlBuilder implements DataBuilderInterface
             }
         }
 
-        $dom->save(self::PATH_FILENAME . $filename . '.'.self::FILE_EXTENSION);
+        $dom->save($_ENV['FILE_PATH_DIRECTORY'] . $filename . '.'.self::FILE_EXTENSION);
     }
 
     public function getFileExtension(): string
