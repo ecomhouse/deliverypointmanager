@@ -2,9 +2,17 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\DataBuilder;
 
+use EcomHouse\DeliveryPoints\Domain\Helper\FileSystemHelper;
+
 class XmlBuilder implements DataBuilderInterface
 {
     const FILE_EXTENSION = 'xml';
+    private FileSystemHelper $fileSystemHelper;
+
+    public function __construct()
+    {
+        $this->fileSystemHelper = new FileSystemHelper();
+    }
 
     public function build(string $filename, array $data, array $headers): void
     {
@@ -28,7 +36,7 @@ class XmlBuilder implements DataBuilderInterface
             }
         }
 
-        $dom->save($_ENV['FILE_PATH_DIRECTORY'] . $filename . '.'.self::FILE_EXTENSION);
+        $dom->save($this->fileSystemHelper->getFileDirectory() . $filename . '.'.self::FILE_EXTENSION);
     }
 
     public function getFileExtension(): string

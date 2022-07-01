@@ -2,14 +2,22 @@
 
 namespace EcomHouse\DeliveryPoints\Domain\DataBuilder;
 
+use EcomHouse\DeliveryPoints\Domain\Helper\FileSystemHelper;
+
 class CsvBuilder implements DataBuilderInterface
 {
     const FILE_EXTENSION = 'csv';
     private const DELIMITER = ',';
+    private FileSystemHelper $fileSystemHelper;
+
+    public function __construct()
+    {
+        $this->fileSystemHelper = new FileSystemHelper();
+    }
 
     public function build(string $filename, array $data, array $headers): void
     {
-        $file = fopen($_ENV['FILE_PATH_DIRECTORY'] . $filename . '.' . self::FILE_EXTENSION, 'w');
+        $file = fopen($this->fileSystemHelper->getFileDirectory() . $filename . '.' . self::FILE_EXTENSION, 'w');
         fputcsv($file, $headers, self::DELIMITER);
 
         foreach ($data as $row) {
