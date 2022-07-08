@@ -23,15 +23,15 @@ Installation application on docker:
 1. run script: ./start
 2. run script: ./shell
 3. run command: composer install
-4. you need to create an .env file in the config/ folder. Example in the .env.example file
+4. create an .env file in the config/ folder. Example in the .env.example file
 
-Installation is super-easy via [Composer](https://getcomposer.org/):
+Install module via [Composer](https://getcomposer.org/):
 
 ```bash
 $ composer require ecomhouse/deliverypoints
 ```
 
-or add it by hand to your `composer.json` file.
+or add it manually to `composer.json` file
 
 ## Usage
 
@@ -48,9 +48,9 @@ $generateFileCommand->execute();
 
 ## Usage Notes .ENV
 
-When a new developer clones your codebase, they will have an additional
-one-time step to manually copy the `.env.example` file to `.env` and fill-in
-their own values (or get any sensitive values from a project co-worker).
+When installing the application, the new developers will have to manually copy 
+the `.env.example` file to the `.env` and fill in with their own values 
+(the alternative way is to operate on sensitive data received from the code author).
 
 Example:
 ```shell
@@ -62,7 +62,7 @@ Sandbox=false for production environments.
 
 ### Scripts
 
-To run the application you must run a command: php run.php with parameters.
+Run an application from command:php line run.php with parameters...
 
 Example:
 ```php
@@ -78,7 +78,7 @@ Other:
 ./stop - stop docker containers
 
 ## Unit tests
-You need to create an phpunit.xml file in the root project. Example in the phpunit.xml.dist file
+Run Unit Tests by creating a phpunit.xml file in the root project. Example in the phpunit.xml.dist file.
 
 run command: 
 ```php
