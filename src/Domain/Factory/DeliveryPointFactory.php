@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace EcomHouse\DeliveryPoints\Domain\Factory;
 
@@ -73,8 +74,8 @@ class DeliveryPointFactory implements FactoryInterface
     {
         $deliveryPoint = new DeliveryPoint();
         $address = $data->address;
-        $deliveryPoint->setLongitude($data->longitude);
-        $deliveryPoint->setLatitude($data->latitude);
+        $deliveryPoint->setLongitude((float)$data->longitude);
+        $deliveryPoint->setLatitude((float)$data->latitude);
         $deliveryPoint->setName($data->name);
         $deliveryPoint->setCode($address->name ?: $data->name);
         $deliveryPoint->setType(DhlApi::NAME);
@@ -89,8 +90,8 @@ class DeliveryPointFactory implements FactoryInterface
     private static function buildOrlenData($data): DeliveryPoint
     {
         $deliveryPoint = new DeliveryPoint();
-        $deliveryPoint->setLongitude($data->Longitude);
-        $deliveryPoint->setLatitude($data->Latitude);
+        $deliveryPoint->setLongitude((float)$data->Longitude);
+        $deliveryPoint->setLatitude((float)$data->Latitude);
         $deliveryPoint->setName($data->DestinationCode);
         $deliveryPoint->setCode($data->DestinationCode);
         $deliveryPoint->setType(OrlenApi::NAME);
@@ -105,8 +106,8 @@ class DeliveryPointFactory implements FactoryInterface
     private static function buildPostOfficeData($data): DeliveryPoint
     {
         $deliveryPoint = new DeliveryPoint();
-        $deliveryPoint->setLongitude($data->x);
-        $deliveryPoint->setLatitude($data->y);
+        $deliveryPoint->setLongitude((float)$data->x);
+        $deliveryPoint->setLatitude((float)$data->y);
         $deliveryPoint->setName($data->nazwa);
         $deliveryPoint->setCode($data->nazwa);
         $deliveryPoint->setType(PocztaPolskaApi::NAME);
