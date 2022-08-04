@@ -60,7 +60,7 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setLatitude((float)$data->location->latitude);
         $deliveryPoint->setName($data->name);
         $deliveryPoint->setCode($data->name);
-        $deliveryPoint->setType(reset($data->type));
+        $deliveryPoint->setType(InpostApi::NAME);
         $deliveryPoint->setStreet((string)$address->street);
         $deliveryPoint->setCity($address->city);
         $deliveryPoint->setPostCode($address->post_code);
@@ -77,7 +77,7 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setLatitude($data->latitude);
         $deliveryPoint->setName($data->name);
         $deliveryPoint->setCode($address->name ?: $data->name);
-        $deliveryPoint->setType($data->type);
+        $deliveryPoint->setType(DhlApi::NAME);
         $deliveryPoint->setStreet($address->street);
         $deliveryPoint->setCity($address->city);
         $deliveryPoint->setPostCode(substr_replace($address->postcode, "-", 2, 0));
@@ -93,7 +93,7 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setLatitude($data->Latitude);
         $deliveryPoint->setName($data->DestinationCode);
         $deliveryPoint->setCode($data->DestinationCode);
-        $deliveryPoint->setType($data->PointType);
+        $deliveryPoint->setType(OrlenApi::NAME);
         $deliveryPoint->setStreet($data->StreetName);
         $deliveryPoint->setCity($data->City);
         $deliveryPoint->setPostCode($data->ZipCode);
@@ -109,7 +109,7 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setLatitude($data->y);
         $deliveryPoint->setName($data->nazwa);
         $deliveryPoint->setCode($data->nazwa);
-        $deliveryPoint->setType($data->typ);
+        $deliveryPoint->setType(PocztaPolskaApi::NAME);
         $deliveryPoint->setStreet($data->ulica);
         $deliveryPoint->setCity($data->miejscowosc);
         $deliveryPoint->setPostCode($data->kod);
