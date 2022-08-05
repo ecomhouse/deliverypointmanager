@@ -42,5 +42,4 @@ final class FileSystemHelper
     {
         unlink($fileName);
     }
-
 }
