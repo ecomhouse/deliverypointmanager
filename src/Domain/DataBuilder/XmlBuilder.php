@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace EcomHouse\DeliveryPoints\Domain\DataBuilder;
 
@@ -29,7 +30,7 @@ class XmlBuilder implements DataBuilderInterface
 
             if (is_array($value)) {
                 foreach ($value as $k => $item) {
-                    $result->appendChild($dom->createElement($k, htmlspecialchars($item ?? '', ENT_QUOTES)));
+                    $result->appendChild($dom->createElement($k, htmlspecialchars((string)$item ?? '', ENT_QUOTES)));
                 }
             } else {
                 $result->appendChild($dom->createElement($key, $value));

@@ -66,7 +66,7 @@ Run an application from command:php line run.php with parameters...
 
 Example:
 ```php
-php run.php xml,csv inpost,dhl,orlen,pocztapolska  // parameters must be decimals without spaces
+php run.php xml,csv inpost,dhl,dpd,orlen,pocztapolska  // parameters must be decimals without spaces
 
 php run.php xml inpost // generate only xml files for only inpost speditor
 ```

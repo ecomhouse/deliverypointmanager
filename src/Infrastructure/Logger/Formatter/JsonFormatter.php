@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace EcomHouse\DeliveryPoints\Infrastructure\Logger\Formatter;
 
@@ -25,7 +26,7 @@ class JsonFormatter implements FormatterInterface
 
         $record['level'] = $this->logLevels[$record['level']->value];
 
-        return Utils::jsonEncode($record, true) . ("\n");
+        return Utils::jsonEncode($record, null, true) . ("\n");
     }
 
     public function formatBatch(array $records): string

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace EcomHouse\DeliveryPoints\Infrastructure\Connector;
 
@@ -8,10 +9,7 @@ use GuzzleHttp\Psr7\Response;
 
 class ConnectorApi implements ConnectorInterface
 {
-    /**
-     * @var GuzzleClient
-     */
-    private $client;
+    private GuzzleClient $client;
 
     /**
      * @param GuzzleClient $client

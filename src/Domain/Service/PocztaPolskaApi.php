@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace EcomHouse\DeliveryPoints\Domain\Service;
 
 use EcomHouse\DeliveryPoints\Domain\Factory\DeliveryPointFactory;
-use EcomHouse\DeliveryPoints\Domain\Helper\ZipHelper;
+use EcomHouse\DeliveryPoints\Domain\Helper\FileSystemHelper;
 use EcomHouse\DeliveryPoints\Infrastructure\Connector\ConnectorUri;
 
 class PocztaPolskaApi implements SpeditorInterface
@@ -12,12 +13,12 @@ class PocztaPolskaApi implements SpeditorInterface
     const URL = 'https://placowki.poczta-polska.pl/pliki-owp.php?t=xmlK48S';
 
     private ConnectorUri $connectorUri;
-    private ZipHelper $zipHelper;
+    private FileSystemHelper $fileSystemHelper;
 
     public function __construct()
     {
         $this->connectorUri = new ConnectorUri;
-        $this->zipHelper = new ZipHelper;
+        $this->fileSystemHelper = new FileSystemHelper;
     }
 
     public function getName(): string
@@ -28,7 +29,7 @@ class PocztaPolskaApi implements SpeditorInterface
     public function getPoints(array $params = []): array
     {
         $filenameZip = $this->connectorUri->doRequest(self::URL);
-        $this->zipHelper->extract($filenameZip);
+        $this->fileSystemHelper->extract($filenameZip);
         $filename = ConnectorUri::PATH . $_ENV['POCZTA_POLSKA_FILENAME'];
         $result = [];
         $data = simplexml_load_string(file_get_contents($filename));
@@ -37,8 +38,8 @@ class PocztaPolskaApi implements SpeditorInterface
             $result[] = DeliveryPointFactory::build((object)$data, self::NAME);
         }
 
-        $this->zipHelper->remove($filename);
-        $this->zipHelper->remove($filenameZip);
+        $this->fileSystemHelper->remove($filename);
+        $this->fileSystemHelper->remove($filenameZip);
 
         return $result;
     }

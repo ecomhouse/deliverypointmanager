@@ -10,6 +10,7 @@
     "ext-json": "*",
     "ext-simplexml": "*",
     "ext-soap": "*",
+    "ext-ssh2": "*",
     "ext-zip": "*",
     "guzzlehttp/guzzle": "7.4.2",
     "monolog/monolog": "^3.0",
