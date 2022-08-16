@@ -7,22 +7,12 @@ use Exception;
 
 final class SftpHelper
 {
-    private string $host;
-    private string $username;
-    private string $password;
-    private string $remoteDir;
-
     public function __construct(
-        string $host,
-        string $username,
-        string $password,
-        string $remoteDir
-    ) {
-        $this->host = $host;
-        $this->username = $username;
-        $this->password = $password;
-        $this->remoteDir = $remoteDir;
-    }
+        private string $host,
+        private string $username,
+        private string $password,
+        private string $remoteDir
+    ) {}
 
     /**
      * @return string
@@ -53,7 +43,7 @@ final class SftpHelper
         $filesize = filesize("ssh2.sftp://$sftpConnection/$this->remoteDir$lastFile");
         while (($read < $filesize) && ($buffer = fread($remote, $filesize - $read))) {
             $read += strlen($buffer);
-            if (fwrite($local, $buffer) === FALSE) {
+            if (fwrite($local, $buffer) === false) {
                 throw new Exception("Failed to write to local file: $lastFile\n");
             }
         }
