@@ -5,4 +5,5 @@ vendor/
 config/.env
 var/data/*.xml
 var/data/*.csv
+var/log/
 .phpunit.result.cache

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Domain\DataBuilder;
 
@@ -10,7 +11,7 @@ final class CsvBuilderTest extends TestCase
 {
     protected function setUp(): void
     {
-        $dotenv = Dotenv::createImmutable('/var/www/html/config/');
+        $dotenv = Dotenv::createImmutable('config/');
         $dotenv->load();
     }
 
@@ -28,9 +29,9 @@ final class CsvBuilderTest extends TestCase
             ['Column1', 'Column2', 'Column3']
         ];
 
-        $filename = "/var/www/html/var/data/" . $_ENV['INPOST_DELIVERY_POINTS_FILENAME'];
+        $filename = $_ENV['FILE_PATH_DIRECTORY'] ."speditor";
         $csvBuilder = new CsvBuilder;
-        $csvBuilder->build($_ENV['INPOST_DELIVERY_POINTS_FILENAME'], $data, $headers);
+        $csvBuilder->build('speditor', $data, $headers);
 
         $this->assertFileExists($filename.'.csv');
 

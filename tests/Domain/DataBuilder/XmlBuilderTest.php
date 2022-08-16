@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Domain\DataBuilder;
 
@@ -10,13 +11,13 @@ final class XmlBuilderTest extends TestCase
 {
     protected function setUp(): void
     {
-        $dotenv = Dotenv::createImmutable('/var/www/html/config/');
+        $dotenv = Dotenv::createImmutable('config/');
         $dotenv->load();
     }
 
     public function testBuild()
     {
-        $filename = "/var/www/html/var/data/" . $_ENV['INPOST_DELIVERY_POINTS_FILENAME'];
+        $filename = $_ENV['FILE_PATH_DIRECTORY'] ."speditor";
         $data[] = [
             'delivery-point-x' => '0.00',
             'delivery-point-y' => '0.00',
@@ -29,7 +30,7 @@ final class XmlBuilderTest extends TestCase
         ];
 
         $xmlBuilder = new XmlBuilder;
-        $xmlBuilder->build($_ENV['INPOST_DELIVERY_POINTS_FILENAME'], $data, []);
+        $xmlBuilder->build('speditor', $data, []);
 
         $this->assertFileExists($filename.'.xml');
 

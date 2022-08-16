@@ -6,11 +6,11 @@ namespace EcomHouse\DeliveryPoints\Domain\Service;
 use EcomHouse\DeliveryPoints\Domain\Factory\DeliveryPointFactory;
 use SoapClient;
 
-class DhlApi implements SpeditorInterface
+class OrlenApi implements SpeditorInterface
 {
-    const NAME = 'dhl';
-    const WSDL_PROD = 'https://dhl24.com.pl/webapi2';
-    const WSDL_SANDBOX = 'https://sandbox.dhl24.com.pl/webapi2';
+    const NAME = 'orlen';
+    const WSDL_PROD = 'https://api.orlenpaczka.pl/WebServicePwRProd/WebServicePwR.asmx?wsdl';
+    const WSDL_SANDBOX = 'https://api-test.orlenpaczka.pl/WebServicePwR/WebServicePwRTest.asmx?WSDL';
 
     protected SoapClient $client;
 
@@ -26,17 +26,9 @@ class DhlApi implements SpeditorInterface
 
     public function getPoints(array $params = []): array
     {
-        $parameters = $this->getParams();
-        $parameters['structure'] = [
-            'country' => $_ENV['DHL_COUNTRY'],
-            'postcode' => $_ENV['DHL_POSTCODE'],
-            'city' => $_ENV['DHL_CITY'],
-            'radius' => $_ENV['DHL_RADIUS'],
-        ];
-        $response = $this->client->__soapCall("getNearestServicepoints", ['parameters' => $parameters]);
-
+        $response = $this->client->__soapCall("GiveMeAllRUCHWithFilled", ['parameters' => $this->getParams()]);
         $result = [];
-        foreach ($response->getNearestServicepointsResult->points->item as $point) {
+        foreach ($response->GiveMeAllRUCHWithFilledResult->Data->PointPwR as $point) {
             $result[] = DeliveryPointFactory::build($point, self::NAME);
         }
 
@@ -46,9 +38,8 @@ class DhlApi implements SpeditorInterface
     private function getParams(): array
     {
         return [
-            'authData' => [
-                'username' => $_ENV['DHL_API_USER'], 'password' => $_ENV['DHL_API_PASSWORD']
-            ]
+            'PartnerID' => $_ENV['ORLEN_PARTNER_ID'],
+            'PartnerKey' => $_ENV['ORLEN_PARTNER_KEY']
         ];
     }
 
@@ -59,5 +50,4 @@ class DhlApi implements SpeditorInterface
         }
         return self::WSDL_PROD;
     }
-
 }
