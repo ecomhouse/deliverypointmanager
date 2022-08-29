@@ -8,7 +8,7 @@ RUN apt update \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip
 
-RUN echo "memory_limit=-1" > $PHP_INI_DIR/conf.d/memory-limit.ini
+RUN echo "memory_limit=2048M" > $PHP_INI_DIR/conf.d/memory-limit.ini
 
 WORKDIR /var/www/html
 
