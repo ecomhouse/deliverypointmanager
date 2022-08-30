@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace EcomHouse\DeliveryPoints\Domain\Service;
 
@@ -37,7 +38,7 @@ class InpostApi implements SpeditorInterface
         $url .= '&per_page=' . $perPage;
 
         $response = $this->connector->doRequest($url, $this->getParams());
-        $points = json_decode($response->getBody());
+        $points = json_decode((string)$response->getBody());
 
         $result = [];
         foreach ($points->items as $point) {
@@ -51,7 +52,7 @@ class InpostApi implements SpeditorInterface
     {
         $url = $this->baseUri() . 'v1/points?page=1&per_page=1';
         $response = $this->connector->doRequest($url, $this->getParams());
-        $data = json_decode($response->getBody());
+        $data = json_decode((string)$response->getBody());
         return $data->count;
     }
 
@@ -67,7 +68,7 @@ class InpostApi implements SpeditorInterface
 
     private function baseUri(): string
     {
-        if ($_ENV['SANDBOX'] ?? false) {
+        if (filter_var($_ENV['SANDBOX'], FILTER_VALIDATE_BOOLEAN)) {
             return self::URI_SANDBOX;
         }
         return self::URI_PRODUCTION;
