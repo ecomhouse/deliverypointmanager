@@ -45,7 +45,7 @@ class OrlenApi implements SpeditorInterface
 
     private function baseUri(): string
     {
-        if ($_ENV['SANDBOX'] ?? false) {
+        if (filter_var($_ENV['SANDBOX'], FILTER_VALIDATE_BOOLEAN)) {
             return self::WSDL_SANDBOX;
         }
         return self::WSDL_PROD;
