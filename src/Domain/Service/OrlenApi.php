@@ -26,13 +26,36 @@ class OrlenApi implements SpeditorInterface
 
     public function getPoints(array $params = []): array
     {
-        $response = $this->client->__soapCall("GiveMeAllRUCHWithFilled", ['parameters' => $this->getParams()]);
+        if (filter_var($_ENV['SANDBOX'], FILTER_VALIDATE_BOOLEAN)) {
+            $response = $this->client->__soapCall("GiveMeAllRUCHWithFilled", ['parameters' => $this->getParams()]);
+        } else {
+            $response = $this->getPointsBySoapRequest();
+        }
         $result = [];
         foreach ($response->GiveMeAllRUCHWithFilledResult->Data->PointPwR as $point) {
             $result[] = DeliveryPointFactory::build($point, self::NAME);
         }
 
         return $result;
+    }
+
+    private function getPointsBySoapRequest()
+    {
+        $request = '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="https://91.242.220.103/WebServicePwR">
+           <soap:Header/>
+           <soap:Body>
+              <web:GiveMeAllRUCHWithFilled>
+                 <web:PartnerID>' . $_ENV['ORLEN_PARTNER_ID'] . '</web:PartnerID>
+                 <web:PartnerKey>' . $_ENV['ORLEN_PARTNER_KEY'] . '</web:PartnerKey>
+              </web:GiveMeAllRUCHWithFilled>
+           </soap:Body>
+        </soap:Envelope>';
+
+        $response = $this->client->__doRequest($request, self::WSDL_PROD, "run", SOAP_1_2);
+        $result = simplexml_load_string(str_replace("soap:", "soap", $response));
+        $object = json_decode(json_encode($result));
+
+        return $object->soapBody->GiveMeAllRUCHWithFilledResponse;
     }
 
     private function getParams(): array
