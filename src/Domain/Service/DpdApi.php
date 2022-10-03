@@ -35,7 +35,7 @@ class DpdApi implements SpeditorInterface
         $result = [];
         foreach ($data as $value) {
             list($idPudo, $postcode, $department, $street, $numberFlat, $numberLocal, $city, $dateOpen, $openingHours, $status,
-                $services, $longitude, $latitude, $hint) = explode(";", str_replace('"', "", $value));
+                $services, $latitude, $longitude, $hint) = explode(";", str_replace('"', "", $value));
 
             if (str_starts_with($idPudo, self::COUNTRY_PL) && $status === self::STATUS_ACTIVE
                 && strpos($services, self::SERVICE_PHRASE)) {
@@ -43,8 +43,8 @@ class DpdApi implements SpeditorInterface
                 $pointObj->code = $idPudo;
                 $pointObj->name = $department . " " . $idPudo;
                 $pointObj->postcode = $postcode;
-                $pointObj->longitude = $longitude;
                 $pointObj->latitude = $latitude;
+                $pointObj->longitude = $longitude;
                 $pointObj->street = $street;
                 $pointObj->city = $city;
                 $pointObj->openingHours = $openingHours;

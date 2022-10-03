@@ -59,8 +59,8 @@ class DeliveryPointFactory implements FactoryInterface
     {
         $deliveryPoint = new DeliveryPoint();
         $address = $data->address_details;
-        $deliveryPoint->setLongitude((float)$data->location->longitude);
         $deliveryPoint->setLatitude((float)$data->location->latitude);
+        $deliveryPoint->setLongitude((float)$data->location->longitude);
         $deliveryPoint->setName($data->name);
         $deliveryPoint->setCode($data->name);
         $deliveryPoint->setType(InpostApi::NAME);
@@ -76,8 +76,8 @@ class DeliveryPointFactory implements FactoryInterface
     {
         $deliveryPoint = new DeliveryPoint();
         $address = $data->address;
-        $deliveryPoint->setLongitude((float)$data->longitude);
         $deliveryPoint->setLatitude((float)$data->latitude);
+        $deliveryPoint->setLongitude((float)$data->longitude);
         $deliveryPoint->setName($data->name);
         $deliveryPoint->setCode($address->name ?: $data->name);
         $deliveryPoint->setType(DhlApi::NAME);
@@ -92,9 +92,8 @@ class DeliveryPointFactory implements FactoryInterface
     private static function buildDpdData($data): DeliveryPoint
     {
         $deliveryPoint = new DeliveryPoint();
-
-        $deliveryPoint->setLongitude((float)$data->longitude);
         $deliveryPoint->setLatitude((float)$data->latitude);
+        $deliveryPoint->setLongitude((float)$data->longitude);
         $deliveryPoint->setName($data->name);
         $deliveryPoint->setCode($data->code);
         $deliveryPoint->setType(DpdApi::NAME);
@@ -110,8 +109,8 @@ class DeliveryPointFactory implements FactoryInterface
     private static function buildOrlenData($data): DeliveryPoint
     {
         $deliveryPoint = new DeliveryPoint();
-        $deliveryPoint->setLongitude((float)$data->Longitude);
         $deliveryPoint->setLatitude((float)$data->Latitude);
+        $deliveryPoint->setLongitude((float)$data->Longitude);
         $deliveryPoint->setName($data->DestinationCode);
         $deliveryPoint->setCode($data->DestinationCode);
         $deliveryPoint->setType(OrlenApi::NAME);
@@ -126,8 +125,8 @@ class DeliveryPointFactory implements FactoryInterface
     private static function buildPostOfficeData($data): DeliveryPoint
     {
         $deliveryPoint = new DeliveryPoint();
-        $deliveryPoint->setLongitude((float)$data->x);
-        $deliveryPoint->setLatitude((float)$data->y);
+        $deliveryPoint->setLatitude((float)$data->x);
+        $deliveryPoint->setLongitude((float)$data->y);
         $deliveryPoint->setName($data->nazwa);
         $deliveryPoint->setCode($data->nazwa);
         $deliveryPoint->setType(PocztaPolskaApi::NAME);
