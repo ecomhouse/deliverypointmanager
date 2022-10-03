@@ -179,8 +179,8 @@ class DeliveryPoint
     public function toArray(): array
     {
         return [
-            'x' => $this->longitude,
-            'y' => $this->latitude,
+            'x' => $this->latitude,
+            'y' => $this->longitude,
             'name' => $this->name,
             'code' => $this->code,
             'type' => $this->type,
