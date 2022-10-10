@@ -125,8 +125,8 @@ class DeliveryPointFactory implements FactoryInterface
     private static function buildPostOfficeData($data): DeliveryPoint
     {
         $deliveryPoint = new DeliveryPoint();
-        $deliveryPoint->setLatitude((float)$data->x);
-        $deliveryPoint->setLongitude((float)$data->y);
+        $deliveryPoint->setLatitude((float)$data->y);
+        $deliveryPoint->setLongitude((float)$data->x);
         $deliveryPoint->setName($data->nazwa);
         $deliveryPoint->setCode($data->nazwa);
         $deliveryPoint->setType(PocztaPolskaApi::NAME);

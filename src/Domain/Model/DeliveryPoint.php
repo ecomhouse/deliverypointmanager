@@ -5,8 +5,8 @@ namespace EcomHouse\DeliveryPoints\Domain\Model;
 
 class DeliveryPoint
 {
-    private float $latitude;
     private float $longitude;
+    private float $latitude;
     private string $name;
     private string $code;
     private string $type;
@@ -19,33 +19,37 @@ class DeliveryPoint
     /**
      * @return float
      */
-    public function getLatitude(): float
-    {
-        return $this->latitude;
-    }
-
-    /**
-     * @param float $latitude
-     */
-    public function setLatitude(float $latitude): void
-    {
-        $this->latitude = $latitude;
-    }
-
-    /**
-     * @return float
-     */
     public function getLongitude(): float
     {
         return $this->longitude;
     }
 
     /**
+     * set x position
+     *
      * @param float $longitude
      */
     public function setLongitude(float $longitude): void
     {
         $this->longitude = $longitude;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLatitude(): float
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * set y position
+     *
+     * @param float $latitude
+     */
+    public function setLatitude(float $latitude): void
+    {
+        $this->latitude = $latitude;
     }
 
     /**
@@ -179,8 +183,8 @@ class DeliveryPoint
     public function toArray(): array
     {
         return [
-            'x' => $this->latitude,
-            'y' => $this->longitude,
+            'x' => $this->longitude,
+            'y' => $this->latitude,
             'name' => $this->name,
             'code' => $this->code,
             'type' => $this->type,
