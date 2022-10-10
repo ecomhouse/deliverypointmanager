@@ -43,8 +43,8 @@ class DpdApi implements SpeditorInterface
                 $pointObj->code = $idPudo;
                 $pointObj->name = $department . " " . $idPudo;
                 $pointObj->postcode = $postcode;
-                $pointObj->latitude = $latitude;
                 $pointObj->longitude = $longitude;
+                $pointObj->latitude = $latitude;
                 $pointObj->street = $street;
                 $pointObj->city = $city;
                 $pointObj->openingHours = $openingHours;
