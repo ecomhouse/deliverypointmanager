@@ -13,12 +13,9 @@ class InpostApi implements SpeditorInterface
     const URI_PRODUCTION = 'https://api.inpost.pl/';
     const URI_SANDBOX = 'https://sandbox-api-gateway-pl.easypack24.net/';
 
-    private ConnectorInterface $connector;
-
-    public function __construct(ConnectorInterface $connector)
-    {
-        $this->connector = $connector;
-    }
+    public function __construct(
+        private ConnectorInterface $connector
+    ) {}
 
     public function getName(): string
     {
