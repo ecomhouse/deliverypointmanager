@@ -9,15 +9,9 @@ use GuzzleHttp\Psr7\Response;
 
 class ConnectorApi implements ConnectorInterface
 {
-    private GuzzleClient $client;
-
-    /**
-     * @param GuzzleClient $client
-     */
-    public function __construct(GuzzleClient $client)
-    {
-        $this->client = $client;
-    }
+    public function __construct(
+        private GuzzleClient $client
+    ) {}
 
     /**
      * @param string $uriEndpoint
