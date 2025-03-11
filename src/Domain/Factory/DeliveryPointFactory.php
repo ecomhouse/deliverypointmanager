@@ -128,7 +128,7 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setLatitude((float)$data->y);
         $deliveryPoint->setLongitude((float)$data->x);
         $deliveryPoint->setName($data->nazwa);
-        $deliveryPoint->setCode($data->nazwa);
+        $deliveryPoint->setCode($data->pni);
         $deliveryPoint->setType(PocztaPolskaApi::NAME);
         $deliveryPoint->setStreet($data->ulica);
         $deliveryPoint->setCity($data->miejscowosc);
