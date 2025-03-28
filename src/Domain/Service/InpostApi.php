@@ -33,6 +33,7 @@ class InpostApi implements SpeditorInterface
         $url .= '?page=' . $page;
         $perPage = $params['per_page'] ?? $this->getCountPoints();
         $url .= '&per_page=' . $perPage;
+        $url .= '&status=Operating';
 
         $response = $this->connector->doRequest($url, $this->getParams());
         $points = json_decode((string)$response->getBody());
