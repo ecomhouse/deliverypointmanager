@@ -2,7 +2,7 @@
   "name": "ecomhouse/deliverypoints",
   "type": "project",
   "description": "EcomHouse DeliveryPoints Api",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "license": "GNU LGPLv3",
   "require": {
     "php": ">=8.1",
