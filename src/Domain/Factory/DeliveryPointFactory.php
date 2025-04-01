@@ -118,7 +118,7 @@ class DeliveryPointFactory implements FactoryInterface
         $deliveryPoint->setCity($data->City);
         $deliveryPoint->setPostCode($data->ZipCode);
         $deliveryPoint->setOpeningHours($data->OpeningHours ?? '');
-        $deliveryPoint->setHint((isset($data->Location)) ? str_replace("\n", "", $data->Location) : '');
+        $deliveryPoint->setHint((isset($data->Location) && is_string($data->Location)) ? str_replace("\n", "", $data->Location) : '');
         return $deliveryPoint;
     }
 
